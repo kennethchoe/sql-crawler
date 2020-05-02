@@ -29,7 +29,7 @@ Configure your git repo with permission, pull request enforced.
 ## Commands
 
 * `n.bat serve`: launch vue on dev mode. Vue code is hot-reloaded.
-  * You much launch back-end from Visual Studio also as IIS Express profile.
+  * You must launch back-end from Visual Studio also as IIS Express profile.
 * `run-webapp.ps1`: launch webapp with vue code transpiled in it, on http:5002 and https:5003.
 * `build.ps1 -target publish`: create web package that can be used to run under IIS
 * `build.ps1 -target build-docker`: create web package on a linux docker image called `sql-crawler`
@@ -37,8 +37,8 @@ Configure your git repo with permission, pull request enforced.
 
 ## Backlog
 
-* container takes sql server list input
-* container takes sql source input
+* web app takes sql server list input
+* web app takes sql source input
 * user can run sql
 * user can view result by sql source
 * user can view result by sql server
