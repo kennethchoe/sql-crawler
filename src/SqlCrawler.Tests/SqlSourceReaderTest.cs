@@ -19,7 +19,7 @@ namespace SqlCrawler.Tests
             var sqls = reader.Read();
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(sqls, Formatting.Indented));
 
-            Assert.That(sqls.Keys.Contains("Server Date"), Is.True);
+            Assert.That(sqls.Keys.Contains("Server DateTime"), Is.True);
         }
     }
 }

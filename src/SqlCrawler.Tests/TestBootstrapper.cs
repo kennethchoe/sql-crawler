@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using SqlCrawler.Backend;
 using SqlCrawler.Web.IoC;
 
 namespace SqlCrawler.Tests
@@ -23,6 +24,9 @@ namespace SqlCrawler.Tests
         public void Bootstrap()
         {
             _container = GetContainerBuilder().Build();
+
+            var sourceReader = Scope.Resolve<SqlSourceReader>();
+            sourceReader.Reload();
         }
 
         public static ContainerBuilder GetContainerBuilder()

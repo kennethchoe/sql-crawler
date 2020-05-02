@@ -11,7 +11,7 @@ namespace SqlCrawler.Tests
     class SqlCredentialReaderTest
     {
         [Test]
-        public void ReadContent()
+        public void Read()
         {
             var appConfig = new AppConfig {SqlCredentialsFilePath = "sql-credentials-test2.csv"};
 

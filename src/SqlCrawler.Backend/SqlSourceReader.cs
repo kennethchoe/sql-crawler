@@ -1,9 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using CsvHelper;
-using CsvHelper.Configuration;
 using LibGit2Sharp;
 
 namespace SqlCrawler.Backend
@@ -33,7 +29,7 @@ namespace SqlCrawler.Backend
             }
         }
 
-        public Dictionary<string, string> Read()
+        public void Reload()
         {
             if (Directory.Exists(Path))
             {
@@ -42,6 +38,11 @@ namespace SqlCrawler.Backend
             }
             Directory.CreateDirectory(Path);
             Repository.Clone(_appConfig.SqlSourceGitRepoPath, Path);
+        }
+
+        public Dictionary<string, string> Read()
+        {
+            if (!Directory.Exists(Path)) Reload();
 
             var result = new Dictionary<string, string>();
 
