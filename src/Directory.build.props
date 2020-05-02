@@ -1,0 +1,7 @@
+﻿<Project>
+<PropertyGroup>
+    <Company></Company>
+    <Version>1.0.0.0</Version>
+    <AssemblyTitle>Sql Crawler</AssemblyTitle>
+</PropertyGroup>
+</Project> 

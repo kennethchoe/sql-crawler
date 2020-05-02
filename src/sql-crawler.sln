@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCrawler.Web", "SqlCrawler.Web\SqlCrawler.Web.csproj", "{98C0C0DB-3501-436D-816F-BA961DA38EBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlCrawler.Web", "SqlCrawler.Web\SqlCrawler.Web.csproj", "{98C0C0DB-3501-436D-816F-BA961DA38EBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCrawler.Tests", "SqlCrawler.Tests\SqlCrawler.Tests.csproj", "{A47E21DE-8F71-47B4-B527-809C181E41EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{98C0C0DB-3501-436D-816F-BA961DA38EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98C0C0DB-3501-436D-816F-BA961DA38EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98C0C0DB-3501-436D-816F-BA961DA38EBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A47E21DE-8F71-47B4-B527-809C181E41EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A47E21DE-8F71-47B4-B527-809C181E41EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A47E21DE-8F71-47B4-B527-809C181E41EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A47E21DE-8F71-47B4-B527-809C181E41EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

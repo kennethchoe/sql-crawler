@@ -20,7 +20,7 @@ Connect to multiple SQL database servers and run queries to collect data.
 
 ### Deployment
 
-DevOps launches the image with production sql server credentials and production sql statements.
+DevOps launches the image with production sql server credentials list file and production sql statements git repo.
 
 ### Registering Poll Sql Statements with Approval Process
 
@@ -39,3 +39,7 @@ Configure your git repo with permission, pull request enforced.
 * user can revise sql source and sql crawler keeps the snapshot
 * user can view previous session's result
 * user can add custom tokens on sql server list and consume on sql source
+
+### Done
+
+* dev mode works with vue npm server and asp.net core server

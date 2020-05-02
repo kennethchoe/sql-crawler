@@ -1,0 +1,1 @@
+npm run %1 --prefix src\vue

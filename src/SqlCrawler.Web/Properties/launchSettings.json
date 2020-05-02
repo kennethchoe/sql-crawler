@@ -11,25 +11,26 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchBrowser": false,
+        "launchUrl": "api/monitoring/liveness",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "SqlCrawler.Web": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "weatherforecast",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+    "CypressTest": {
+        "commandName": "Project",
+        "launchBrowser": false,
+        "launchUrl": "api/monitoring/liveness",
+        "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development",
+            "App__CiMode": "true"
+        },
+        "applicationUrl": "https://localhost:5003;http://localhost:5002"
     },
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/weatherforecast",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/monitoring/liveness",
       "publishAllPorts": true,
       "useSSL": true
     }
