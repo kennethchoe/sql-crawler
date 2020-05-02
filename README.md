@@ -14,7 +14,7 @@ Connect to multiple SQL database servers and run queries to collect data.
 ### Development
 
 1. Dev creates docker image that accepts 2 parameters:
-   1. Tab delimited file with sql server credentials.
+   1. Location of tab-delimited file that contains sql server credentials.
    2. Location of git repository for polling sql statements.
 2. Dev tests image with dev sql servers list and dev sql statement repo.
 
