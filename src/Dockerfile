@@ -7,9 +7,8 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["SqlCrawler.Web/SqlCrawler.Web.csproj", "SqlCrawler.Web/"]
-RUN dotnet restore "SqlCrawler.Web/SqlCrawler.Web.csproj"
-COPY . .
+COPY [".", "."]
+RUN dotnet restore "sql-crawler.sln"
 WORKDIR "/src/SqlCrawler.Web"
 RUN dotnet build "SqlCrawler.Web.csproj" -c Release -o /app/build
 
@@ -19,4 +18,6 @@ RUN dotnet publish "SqlCrawler.Web.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+# if you can install certificate on final image, you can expose https also.
+# ENV ASPNETCORE_URLS=https://+:443;http://+:80
 ENTRYPOINT ["dotnet", "SqlCrawler.Web.dll"]

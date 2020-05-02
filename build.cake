@@ -57,6 +57,15 @@ Task("Build")
     .IsDependentOn("Build-Vue")
     .IsDependentOn("Build-DotNet");
 
+Task("Build-Docker")
+    .IsDependentOn("Build-Vue")
+    .Does(() =>
+{
+    var exitCode = StartProcess("docker", "build .\\src -t " + name);
+    if (exitCode != 0)
+        throw new Exception("Failed.");
+});
+
 Task("Run-DotNet-Tests")
     .IsDependentOn("Build-DotNet")
     .Does(() =>
