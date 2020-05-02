@@ -31,8 +31,8 @@ Configure your git repo with permission, pull request enforced.
 * `n.bat serve`: launch vue on dev mode. Vue code is hot-reloaded.
   * You much launch back-end from Visual Studio also as IIS Express profile.
 * `run-webapp.ps1`: launch webapp with vue code transpiled in it, on http:5002 and https:5003.
-* `build.ps1 -target publish`: create web package that can be copied over to IIS
-* `build.ps1 -target build-docker`: create linux docker image called `sql-crawler`
+* `build.ps1 -target publish`: create web package that can be used to run under IIS
+* `build.ps1 -target build-docker`: create web package on a linux docker image called `sql-crawler`
 * `docker-run.ps1 {port#}`: create linux docker image and run it as http on the given port number. When omitted, port# is 5004.
 
 ## Backlog
