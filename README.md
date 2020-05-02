@@ -7,7 +7,7 @@ Connect to multiple SQL database servers and run queries to collect data.
 1. Your application is single-tenant database.
 2. You need to poll anonymous information from multiple single-tenant production sql servers.
 3. You do not have credential to production sql servers.
-4. Your poll sql statement needs to go through approval process.
+4. Your polling sql statement needs to go through approval process.
 
 ## How It Works
 
