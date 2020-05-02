@@ -2,7 +2,7 @@
 
 Connect to multiple SQL database servers and run queries to collect data.
 
-## Context: When You Need sql-crawler
+## When Do You Need sql-crawler?
 
 1. Your application is single-tenant database.
 2. You need to poll anonymous information from multiple single-tenant production sql servers.
