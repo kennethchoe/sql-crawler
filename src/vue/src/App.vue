@@ -5,7 +5,13 @@
       <router-link to="/servers">Servers</router-link> |
       <router-link to="/queries">Queries</router-link>
     </div>
-    <router-view />
+    <v-container>
+      <v-row>
+        <v-col>
+          <router-view />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
