@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <None Remove="appsettings.test.json" />
+    <None Remove="sql-credentials-test.csv" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,7 +28,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SqlCrawler.Backend\SqlCrawler.Backend.csproj" />
     <ProjectReference Include="..\SqlCrawler.Web\SqlCrawler.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="sql-credentials-test.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

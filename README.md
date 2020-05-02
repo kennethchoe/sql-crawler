@@ -37,7 +37,6 @@ Configure your git repo with permission, pull request enforced.
 
 ## Backlog
 
-* web app takes sql server list input
 * web app takes sql source input
 * user can run sql
 * user can view result by sql source

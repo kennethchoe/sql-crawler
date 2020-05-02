@@ -1,4 +1,4 @@
-﻿namespace SqlCrawler.Web
+﻿namespace SqlCrawler.Backend
 {
     public interface IAppConfig
     {

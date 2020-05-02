@@ -21,5 +21,9 @@
     <Folder Include="IoC\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SqlCrawler.Backend\SqlCrawler.Backend.csproj" />
+  </ItemGroup>
+
 
 </Project>

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using Autofac;
 using Microsoft.Extensions.Configuration;
+using SqlCrawler.Backend;
 
 namespace SqlCrawler.Web.IoC
 {
@@ -22,7 +24,8 @@ namespace SqlCrawler.Web.IoC
 
             var assemblies = new[]
             {
-                GetType().Assembly
+                GetType().Assembly,
+                Assembly.GetAssembly(typeof(Backend.Dll))
             };
 
             builder.RegisterAssemblyTypes(assemblies);
