@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCrawler.Web", "SqlCrawler.Web\SqlCrawler.Web.csproj", "{98C0C0DB-3501-436D-816F-BA961DA38EBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{98C0C0DB-3501-436D-816F-BA961DA38EBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98C0C0DB-3501-436D-816F-BA961DA38EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98C0C0DB-3501-436D-816F-BA961DA38EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98C0C0DB-3501-436D-816F-BA961DA38EBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8FA6E55-2B9B-4E48-AF0F-B05BA454017C}
+	EndGlobalSection
+EndGlobal
