@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    {{ liveness }}
+  <div>
+    {{ queries }}
   </div>
 </template>
 
@@ -9,13 +9,13 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["liveness"])
+    ...mapState(["queries"])
   },
   methods: {
-    ...mapActions(["getLiveness"])
+    ...mapActions(["getQueries"])
   },
   mounted() {
-    this.getLiveness();
+    this.getQueries();
   }
 };
 </script>

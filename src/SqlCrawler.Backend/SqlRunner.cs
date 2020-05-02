@@ -12,11 +12,14 @@ namespace SqlCrawler.Backend
     {
         private readonly SqlCredentialReader _credentialReader;
         private readonly SqlSourceReader _sourceReader;
+        private readonly IAppConfig _appConfig;
 
-        public SqlRunner(SqlCredentialReader credentialReader, SqlSourceReader sourceReader)
+        public SqlRunner(SqlCredentialReader credentialReader, SqlSourceReader sourceReader,
+            IAppConfig appConfig)
         {
             _credentialReader = credentialReader;
             _sourceReader = sourceReader;
+            _appConfig = appConfig;
         }
 
         public async Task<IEnumerable<RunResult>> Run(string sqlKey, CancellationToken cancellationToken)
@@ -40,7 +43,7 @@ namespace SqlCrawler.Backend
 
                 var conn = new SqlConnection(server.ToConnectionString());
                 runResult.Result = await conn.QueryAsync(
-                    new CommandDefinition(processed, server, cancellationToken: cancellationToken));
+                    new CommandDefinition(processed, server, cancellationToken: cancellationToken, commandTimeout: _appConfig.CommandTimeoutInSeconds));
 
                 result.Add(runResult);
             }
