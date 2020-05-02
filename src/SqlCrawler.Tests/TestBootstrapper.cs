@@ -11,7 +11,7 @@ namespace SqlCrawler.Tests
         private static IContainer _container;
         public static ILifetimeScope Scope => _container.BeginLifetimeScope();
 
-        public IConfiguration InitConfiguration()
+        private static IConfiguration InitConfiguration()
         {
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appSettings.test.json", optional:false)
@@ -22,12 +22,16 @@ namespace SqlCrawler.Tests
         [OneTimeSetUp]
         public void Bootstrap()
         {
-            var config = InitConfiguration();
+            _container = GetContainerBuilder().Build();
+        }
 
+        public static ContainerBuilder GetContainerBuilder()
+        {
+            var config = InitConfiguration();
             var builder = new ContainerBuilder();
             builder.RegisterModule(new WebAppModule(config));
             builder.RegisterModule(new TestModule());
-            _container = builder.Build();
+            return builder;
         }
     }
 
