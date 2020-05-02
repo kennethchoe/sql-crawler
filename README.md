@@ -37,7 +37,6 @@ Configure your git repo with permission, pull request enforced.
 
 ## Backlog
 
-* web app takes sql source input
 * user can run sql
 * user can view result by sql source
 * user can view result by sql server
@@ -50,3 +49,5 @@ Configure your git repo with permission, pull request enforced.
 
 * dev mode works with vue npm server and asp.net core server
 * ci creates docker package that has vue transpiled into asp.net core server
+* web app takes sql server list input
+* web app takes sql source input
