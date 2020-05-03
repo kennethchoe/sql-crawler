@@ -1,6 +1,16 @@
 <template>
   <div>
-    <v-btn @click="onRun" :loading="running">Run</v-btn>
+    <v-card>
+      <v-card-title>{{ queryName }}</v-card-title>
+      <v-card-text
+        ><pre class="query-body">{{ queryBody }}</pre></v-card-text
+      >
+      <v-card-actions>
+        <v-spacer />
+        <v-btn @click="onRun" :loading="running">Run</v-btn>
+      </v-card-actions>
+    </v-card>
+    <br />
     <v-data-table
       :headers="headers"
       :options.sync="options"
@@ -26,7 +36,7 @@ export default {
     options: {}
   }),
   computed: {
-    ...mapState(["results"]),
+    ...mapState(["results", "queries"]),
     headers() {
       const result = [{ text: "ServerId", value: "ServerId" }];
       if (this.results.length > 0) {
@@ -38,6 +48,9 @@ export default {
         }
       }
       return result;
+    },
+    queryBody() {
+      return this.queries.filter(x => x.name === this.queryName)[0].query;
     }
   },
   methods: {
@@ -65,3 +78,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.query-body {
+  white-space: pre;
+  text-align: left;
+}
+</style>

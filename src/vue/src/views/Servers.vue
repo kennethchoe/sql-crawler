@@ -6,7 +6,7 @@
       :loading="loading"
       :items="servers"
     >
-      <template v-slot:item.serverId="{ item }">
+      <!-- <template v-slot:item.serverId="{ item }">
         <router-link
           :to="{
             name: 'poll-by-server',
@@ -15,7 +15,7 @@
         >
           {{ item.serverId }}</router-link
         >
-      </template>
+      </template> -->
     </v-data-table>
   </div>
 </template>
@@ -33,7 +33,9 @@ export default {
     headers: [
       { text: "Id", value: "serverId" },
       { text: "Name", value: "serverName" },
-      { text: "Description", value: "description", align: "start" }
+      { text: "Description", value: "description", align: "start" },
+      { text: "UserData 1", value: "userData1" },
+      { text: "UserData 2", value: "userData2" }
     ]
   }),
   computed: {

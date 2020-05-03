@@ -30,10 +30,7 @@ export default {
       sortBy: ["name"],
       sortDesc: [false]
     },
-    headers: [
-      { text: "Name", value: "name" },
-      { text: "Query", value: "query", align: "start" }
-    ]
+    headers: [{ text: "Name", value: "name" }]
   }),
   computed: {
     ...mapState(["queries"])

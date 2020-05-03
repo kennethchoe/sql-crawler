@@ -5,7 +5,11 @@
       <router-link to="/servers">Servers</router-link>
     </div>
     <v-container>
-      <router-view />
+      <v-row no-gutters>
+        <v-col>
+          <router-view />
+        </v-col>
+      </v-row>
     </v-container>
   </div>
 </template>
