@@ -31,11 +31,11 @@ export default {
       sortDesc: [false]
     },
     headers: [
-      { text: "Id", value: "serverId" },
-      { text: "Name", value: "serverName" },
-      { text: "Description", value: "description", align: "start" },
-      { text: "UserData 1", value: "userData1" },
-      { text: "UserData 2", value: "userData2" }
+      { text: "ServerId", value: "serverId" },
+      { text: "ServerName", value: "serverName" },
+      { text: "Description", value: "description" },
+      { text: "UserData1", value: "userData1" },
+      { text: "UserData2", value: "userData2" }
     ]
   }),
   computed: {

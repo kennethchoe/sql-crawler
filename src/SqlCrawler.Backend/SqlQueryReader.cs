@@ -30,6 +30,22 @@ namespace SqlCrawler.Backend
             }
         }
 
+        private CloneOptions BuildCloneOption()
+        {
+            if (string.IsNullOrEmpty(_appConfig.SqlSourceGitUsername)) return new CloneOptions();
+            
+            var credentials = new UsernamePasswordCredentials
+            {
+                Username = _appConfig.SqlSourceGitUsername,
+                Password = _appConfig.SqlSourceGitPassword
+            };
+
+            return new CloneOptions
+            {
+                CredentialsProvider = (s, fromUrl, types) => credentials
+            };
+        }
+
         public void Reload()
         {
             if (Directory.Exists(Path))
@@ -38,7 +54,9 @@ namespace SqlCrawler.Backend
                 Directory.Delete(Path, true);
             }
             Directory.CreateDirectory(Path);
-            Repository.Clone(_appConfig.SqlSourceGitRepoPath, Path);
+
+
+            Repository.Clone(_appConfig.SqlSourceGitRepoPath, Path, BuildCloneOption());
         }
 
         public IEnumerable<SqlQueryInfo> Read()
