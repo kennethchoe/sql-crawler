@@ -34,7 +34,7 @@ namespace SqlCrawler.Backend.Sqlite
 
             _conn.Execute(@"
 update Sessions set IsActive = 1, FinishedAtUtc = @FinishedAtUtc where RowId = @RowId;
-update Sessions set IsActive = 0 where RowId <> @RowId and IsActive = 1;
+update Sessions set IsActive = 0 where RowId <> @RowId and IsActive = 1 and QueryName = @QueryName;
 ", sessionRecord);
         }
     }

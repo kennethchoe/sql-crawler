@@ -14,18 +14,18 @@ namespace SqlCrawler.Backend
     public class SqlRunner
     {
         private readonly SqlCredentialReader _credentialReader;
-        private readonly SqlSourceReader _sourceReader;
+        private readonly SqlQueryReader _queryReader;
         private readonly IAppConfig _appConfig;
         private readonly SessionRepository _sessionRepository;
         private readonly ResultRepository _resultRepository;
 
-        public SqlRunner(SqlCredentialReader credentialReader, SqlSourceReader sourceReader,
+        public SqlRunner(SqlCredentialReader credentialReader, SqlQueryReader queryReader,
             IAppConfig appConfig,
             SessionRepository sessionRepository,
             ResultRepository resultRepository)
         {
             _credentialReader = credentialReader;
-            _sourceReader = sourceReader;
+            _queryReader = queryReader;
             _appConfig = appConfig;
             _sessionRepository = sessionRepository;
             _resultRepository = resultRepository;
@@ -33,7 +33,7 @@ namespace SqlCrawler.Backend
 
         public async Task Run(string queryName, CancellationToken cancellationToken)
         {
-            var sqls = _sourceReader.Read();
+            var sqls = _queryReader.Read();
             var template = Handlebars.Compile(sqls.Single(x => x.Name == queryName).Query);
 
             var servers = _credentialReader.Read();

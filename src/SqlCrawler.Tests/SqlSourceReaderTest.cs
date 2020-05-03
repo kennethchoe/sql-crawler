@@ -13,7 +13,7 @@ namespace SqlCrawler.Tests
         [Test]
         public void Read()
         {
-            var reader = TestBootstrapper.Scope.Resolve<SqlSourceReader>();
+            var reader = TestBootstrapper.Scope.Resolve<SqlQueryReader>();
             var sqls = reader.Read();
             Console.WriteLine(JsonConvert.SerializeObject(sqls, Formatting.Indented));
 

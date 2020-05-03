@@ -1,16 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Polls</router-link> |
-      <router-link to="/servers">Servers</router-link> |
-      <router-link to="/queries">Queries</router-link>
+      <router-link to="/">Queries</router-link> |
+      <router-link to="/servers">Servers</router-link>
     </div>
     <v-container>
-      <v-row>
-        <v-col>
-          <router-view />
-        </v-col>
-      </v-row>
+      <router-view />
     </v-container>
   </div>
 </template>

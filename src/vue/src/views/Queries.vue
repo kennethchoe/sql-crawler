@@ -10,7 +10,7 @@
         <router-link
           :to="{
             name: 'poll-by-query',
-            params: { name: item.name }
+            params: { queryName: item.name }
           }"
         >
           {{ item.name }}</router-link

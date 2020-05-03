@@ -37,7 +37,6 @@ Configure your git repo with permission, pull request enforced.
 
 ## Backlog
 
-* user can select and run sql sources
 * user can view result by sql source
 * user can view result by sql server
 * user can stop running sql
@@ -53,3 +52,4 @@ Configure your git repo with permission, pull request enforced.
 * web app takes sql source input
 * user can view sql server list
 * user can view sql sources
+* user can select and run sql queries

@@ -28,7 +28,7 @@ namespace SqlCrawler.Tests
 
             var dbUpService = Scope.Resolve<DbUpService>();
             dbUpService.Upgrade();
-            var sourceReader = Scope.Resolve<SqlSourceReader>();
+            var sourceReader = Scope.Resolve<SqlQueryReader>();
             sourceReader.Reload();
         }
 

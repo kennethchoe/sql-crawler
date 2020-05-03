@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: () => ({
     liveness: false,
     servers: [],
-    queries: []
+    queries: [],
+    results: []
   }),
   mutations: {
     SET_LIVENESS(state, value) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     SET_QUERIES(state, queries) {
       state.queries = queries;
+    },
+    SET_RESULTS(state, results) {
+      state.results = results;
     }
   },
   actions: {
@@ -33,8 +37,18 @@ export default new Vuex.Store({
       });
     },
     getQueries(context) {
-      return axios.get("/api/sqlSource").then(r => {
+      return axios.get("/api/sqlQueries").then(r => {
         context.commit("SET_QUERIES", r.data);
+      });
+    },
+    run(context, queryName) {
+      return axios.post(`/api/sqlQueries/${queryName}/run`).then(() => {
+        return context.dispatch("getResults", queryName);
+      });
+    },
+    getResults(context, queryName) {
+      return axios.get(`/api/sqlQueries/${queryName}`).then(r => {
+        context.commit("SET_RESULTS", r.data);
       });
     }
   },

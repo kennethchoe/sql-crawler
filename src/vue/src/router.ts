@@ -1,14 +1,14 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "./views/Home.vue";
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    name: "Home",
-    component: Home
+    name: "Queries",
+    component: () =>
+      import(/* webpackChunkName: "queries" */ "./views/Queries.vue")
   },
   {
     path: "/servers",
@@ -17,10 +17,19 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "servers" */ "./views/Servers.vue")
   },
   {
-    path: "/queries",
-    name: "Queries",
+    path: "/poll-by-query/:queryName",
+    name: "poll-by-query",
+    props: true,
     component: () =>
-      import(/* webpackChunkName: "queries" */ "./views/Queries.vue")
+      import(/* webpackChunkName: "poll-by-query" */ "./views/PollByQuery.vue")
+    // },
+    // {
+    //   path: "/poll-by-server/:serverId",
+    //   name: "poll-by-server",
+    //   component: () =>
+    //     import(
+    //       /* webpackChunkName: "poll-by-server" */ "./views/PollByServer.vue"
+    //     )
   }
 ];
 

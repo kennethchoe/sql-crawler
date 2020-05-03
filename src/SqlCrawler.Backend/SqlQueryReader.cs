@@ -5,13 +5,13 @@ using SqlCrawler.Backend.Core;
 
 namespace SqlCrawler.Backend
 {
-    public class SqlSourceReader
+    public class SqlQueryReader
     {
         private const string Path = "sql-source";
 
         private readonly IAppConfig _appConfig;
 
-        public SqlSourceReader(IAppConfig appConfig)
+        public SqlQueryReader(IAppConfig appConfig)
         {
             _appConfig = appConfig;
         }
