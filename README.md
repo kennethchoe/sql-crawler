@@ -35,7 +35,9 @@ Configure your git repo with permission, pull request enforced.
 * `build.ps1 -target build-docker` : create web package on a linux docker image called `sql-crawler`
 * `docker-run.ps1` : create linux docker image and run it as http:5004.
     *  `-port 1234` : run it on http:1234.
-    *  `-dataPath real-secret-path` : instead of docker-test-data path, use real-secret-path where you keep actual credentials of SQL servers.
+    *  `-dataPath real-secret-path` : instead of `docker-test-data` path, use real-secret-path where you keep actual credentials of SQL servers.
+    *  `-gitSqlSource https://git-repo-url` : specify sql source. Default value is `https://github.com/kennethchoe/sql-crawler-sqls.git`, which is sample repo that shows what is possible.
+    *  `-skipRebuild` skips rebuilding docker image.
 
 ## Useful Docker Commands
 
@@ -52,11 +54,11 @@ Because I forget them after a while...
 
 * queries should show sql sources in pre form
 * Run button should be primary color
-* user can view result by sql server
+
 * user can stop running sql
-* docker batch accepts sql source git path
 * better progress and error message while running polls
 * tolerate individual server failures. move IsActive from Sessions to Results.
+* user can view result by sql server
 
 ### Done
 
@@ -73,6 +75,7 @@ Because I forget them after a while...
 * make serilog to write to console, for any errors
 * docker batch accepts sql credential file path
 * sql source result json should be tabular-formatted properly
+* docker batch accepts sql source git path
 
 ### Deferred
 
