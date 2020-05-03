@@ -37,12 +37,12 @@ Configure your git repo with permission, pull request enforced.
 
 ## Backlog
 
-* user can view result by sql source
+* sql source result json should be tabular-formatted properly
+* queries should show sql sources in pre form
+* Run button should be primary color
 * user can view result by sql server
 * user can stop running sql
-* user can revise sql source and sql crawler keeps the snapshot
-* user can view previous session's result
-* user can add custom tokens on sql server list and consume on sql source
+* docker batch accepts sql credential file path and sql source git path
 
 ### Done
 
@@ -53,3 +53,10 @@ Configure your git repo with permission, pull request enforced.
 * user can view sql server list
 * user can view sql sources
 * user can select and run sql queries
+* user can view result by sql source
+
+### Deferred
+
+* user can revise sql source and sql crawler keeps the snapshot => resolvable procedurally
+* user can view previous session's result => not core feature. via git, history is trackable if needed.
+* user can add custom tokens on sql server list and consume on sql source => just added UserData1 and UserData2
