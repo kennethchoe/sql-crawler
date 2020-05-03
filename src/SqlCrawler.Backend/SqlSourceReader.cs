@@ -40,17 +40,20 @@ namespace SqlCrawler.Backend
             Repository.Clone(_appConfig.SqlSourceGitRepoPath, Path);
         }
 
-        public Dictionary<string, string> Read()
+        public IEnumerable<SqlQueryInfo> Read()
         {
             if (!Directory.Exists(Path)) Reload();
 
-            var result = new Dictionary<string, string>();
+            var result = new List<SqlQueryInfo>();
 
             foreach (var file in Directory.GetFiles(Path))
             {
                 if (file.ToLower().EndsWith(".sql"))
                 {
-                    result.Add(file.Substring(Path.Length + 1, file.Length - Path.Length - 5), File.ReadAllText(file));
+                    result.Add(new SqlQueryInfo {
+                        Name = file.Substring(Path.Length + 1, file.Length - Path.Length - 5), 
+                        Query = File.ReadAllText(file)
+                            });
                 }
             }
 

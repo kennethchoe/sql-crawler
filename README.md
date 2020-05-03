@@ -37,8 +37,6 @@ Configure your git repo with permission, pull request enforced.
 
 ## Backlog
 
-* user can view sql server list
-* user can view sql sources
 * user can select and run sql sources
 * user can view result by sql source
 * user can view result by sql server
@@ -53,3 +51,5 @@ Configure your git repo with permission, pull request enforced.
 * ci creates docker package that has vue transpiled into asp.net core server
 * web app takes sql server list input
 * web app takes sql source input
+* user can view sql server list
+* user can view sql sources

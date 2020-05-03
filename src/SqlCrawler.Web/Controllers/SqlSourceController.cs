@@ -18,7 +18,7 @@ namespace SqlCrawler.Web.Controllers
         }
 
         [HttpGet]
-        public Dictionary<string, string> Get()
+        public IEnumerable<SqlQueryInfo> Get()
         {
             _sqlSourceReader.Reload();
             var sqls = _sqlSourceReader.Read();

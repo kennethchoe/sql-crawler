@@ -9,7 +9,7 @@
       <template v-slot:item.serverId="{ item }">
         <router-link
           :to="{
-            name: 'view-server',
+            name: 'poll-by-server',
             params: { serverId: item.serverId, serverName: item.serverName }
           }"
         >
@@ -33,12 +33,8 @@ export default {
     headers: [
       { text: "Id", value: "serverId" },
       { text: "Name", value: "serverName" },
-      { text: "Description", value: "description" }
-    ],
-    files: [],
-    uploading: false,
-    cancellationSource: {},
-    deleting: false
+      { text: "Description", value: "description", align: "start" }
+    ]
   }),
   computed: {
     ...mapState(["servers"])

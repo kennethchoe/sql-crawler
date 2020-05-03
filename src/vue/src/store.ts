@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: () => ({
     liveness: false,
     servers: [],
-    queries: {}
+    queries: []
   }),
   mutations: {
     SET_LIVENESS(state, value) {

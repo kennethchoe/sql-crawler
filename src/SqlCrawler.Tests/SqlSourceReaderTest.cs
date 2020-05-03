@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Autofac;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -17,9 +15,9 @@ namespace SqlCrawler.Tests
         {
             var reader = TestBootstrapper.Scope.Resolve<SqlSourceReader>();
             var sqls = reader.Read();
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(sqls, Formatting.Indented));
+            Console.WriteLine(JsonConvert.SerializeObject(sqls, Formatting.Indented));
 
-            Assert.That(sqls.Keys.Contains("Server DateTime"), Is.True);
+            Assert.That(sqls.Any(x => x.Name == "Server DateTime"), Is.True);
         }
     }
 }

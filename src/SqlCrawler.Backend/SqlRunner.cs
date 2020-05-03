@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
@@ -25,7 +26,7 @@ namespace SqlCrawler.Backend
         public async Task<IEnumerable<RunResult>> Run(string sqlKey, CancellationToken cancellationToken)
         {
             var sqls = _sourceReader.Read();
-            var template = Handlebars.Compile(sqls[sqlKey]);
+            var template = Handlebars.Compile(sqls.Single(x => x.Name == sqlKey).Query);
 
             var servers = _credentialReader.Read();
 
