@@ -40,8 +40,7 @@ namespace SqlCrawler.Web
             dbUpService.Upgrade();
 
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-                .Enrich.FromLogContext()
+                .WriteTo.Console()
                 .CreateLogger();
 
             if (env.IsDevelopment())

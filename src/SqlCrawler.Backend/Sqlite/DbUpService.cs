@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using DbUp;
 using DbUp.Helpers;
@@ -18,8 +19,8 @@ namespace SqlCrawler.Backend.Sqlite
 
         public void Upgrade()
         {
-            RunUpgrade(_config.SqliteDataPath, "Upgrade", useNullJournal: false);
-            RunUpgrade(_config.SqliteDataPath, "AfterEveryUpgrade", useNullJournal: true);
+            RunUpgrade(Path.Combine(_config.SqliteDataPath), "Upgrade", useNullJournal: false);
+            RunUpgrade(Path.Combine(_config.SqliteDataPath), "AfterEveryUpgrade", useNullJournal: true);
         }
 
         private static void RunUpgrade(string dataPath, string folder, bool useNullJournal)

@@ -1,0 +1,1 @@
+In this folder, put sql-credentials.csv with working credentials to test out docker.

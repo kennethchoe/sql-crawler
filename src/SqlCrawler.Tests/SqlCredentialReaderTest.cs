@@ -14,7 +14,7 @@ namespace SqlCrawler.Tests
         [Test]
         public void ToConnectionString()
         {
-            var appConfig = new AppConfig {SqlCredentialsFilePath = "sql-credentials-connstr-test.csv"};
+            var appConfig = new AppConfig {SqlCredentialsFilePath = new [] {"sql-credentials-connstr-test.csv"}};
 
             var scope = BuildCustomScope(appConfig);
 
@@ -31,7 +31,7 @@ namespace SqlCrawler.Tests
         [Test]
         public void DuplicateServerIdsShouldRaiseException()
         {
-            var appConfig = new AppConfig { SqlCredentialsFilePath = "sql-credentials-dup-server-ids.csv" };
+            var appConfig = new AppConfig { SqlCredentialsFilePath = new[] { "sql-credentials-dup-server-ids.csv" }};
 
             var scope = BuildCustomScope(appConfig);
 

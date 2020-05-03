@@ -19,7 +19,7 @@ namespace SqlCrawler.Backend
 
         public IEnumerable<SqlServerInfo> Read()
         {
-            using var reader = new StreamReader(_appConfig.SqlCredentialsFilePath);
+            using var reader = new StreamReader(Path.Combine(_appConfig.SqlCredentialsFilePath));
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
             var records = csv.GetRecords<SqlServerInfo>().ToList();

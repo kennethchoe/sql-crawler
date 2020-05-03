@@ -33,7 +33,9 @@ Configure your git repo with permission, pull request enforced.
 * `run-webapp.ps1`: launch webapp with vue code transpiled in it, on http:5002 and https:5003.
 * `build.ps1 -target publish`: create web package that can be used to run under IIS
 * `build.ps1 -target build-docker`: create web package on a linux docker image called `sql-crawler`
-* `docker-run.ps1 {port#}`: create linux docker image and run it as http on the given port number. When omitted, port# is 5004.
+* `docker-run.ps1`: create linux docker image and run it as http:5004.
+    *  `-port 1234`: run it on http:1234.
+    *  `-dataPath real-secret-path`: instead of docker-test-data path, use real-secret-path where you keep actual credentials of SQL servers.
 
 ## Backlog
 
@@ -42,9 +44,7 @@ Configure your git repo with permission, pull request enforced.
 * Run button should be primary color
 * user can view result by sql server
 * user can stop running sql
-* docker container is not working. did I use some library that doesn't work on linux?
-* make serilog to write to console, for any errors
-* docker batch accepts sql credential file path and sql source git path
+* docker batch accepts sql source git path
 
 ### Done
 
@@ -56,6 +56,10 @@ Configure your git repo with permission, pull request enforced.
 * user can view sql sources
 * user can select and run sql queries
 * user can view result by sql source
+* docker container is not working. did I use some library that doesn't work on linux?
+    *  It was [https://github.com/libgit2/libgit2sharp/issues/1703](https://github.com/libgit2/libgit2sharp/issues/1703)
+* make serilog to write to console, for any errors
+* docker batch accepts sql credential file path
 
 ### Deferred
 

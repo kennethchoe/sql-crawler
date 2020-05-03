@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Autofac;
@@ -24,7 +25,7 @@ namespace SqlCrawler.Web.IoC
             _config.GetSection("App").Bind(appConfig);
             builder.RegisterInstance(appConfig).As<IAppConfig>();
 
-            builder.Register(x => new SqliteConnection("Data Source=" + appConfig.SqliteDataPath)).As<SqliteConnection>();
+            builder.Register(x => new SqliteConnection("Data Source=" + Path.Combine(appConfig.SqliteDataPath))).As<SqliteConnection>();
 
             var assemblies = new[]
             {
