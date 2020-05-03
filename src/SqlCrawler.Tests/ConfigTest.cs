@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using NUnit.Framework;
 using SqlCrawler.Backend;
+using SqlCrawler.Backend.Core;
 using SqlCrawler.Web;
 
 namespace SqlCrawler.Tests

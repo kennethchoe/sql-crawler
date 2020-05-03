@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Omu.ValueInjecter;
 using SqlCrawler.Backend;
+using SqlCrawler.Backend.Core;
 
 namespace SqlCrawler.Web.Controllers
 {

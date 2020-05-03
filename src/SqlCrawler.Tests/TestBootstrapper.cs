@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using SqlCrawler.Backend;
+using SqlCrawler.Backend.Sqlite;
 using SqlCrawler.Web.IoC;
 
 namespace SqlCrawler.Tests
@@ -25,6 +26,8 @@ namespace SqlCrawler.Tests
         {
             _container = GetContainerBuilder().Build();
 
+            var dbUpService = Scope.Resolve<DbUpService>();
+            dbUpService.Upgrade();
             var sourceReader = Scope.Resolve<SqlSourceReader>();
             sourceReader.Reload();
         }

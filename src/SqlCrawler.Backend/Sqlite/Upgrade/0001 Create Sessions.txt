@@ -1,0 +1,7 @@
+﻿create table IF NOT EXISTS Sessions(
+	QueryName nvarchar(200) not null,
+	IsActive bit not null,
+	StartedAtUtc DateTime not null,
+	FinishedAtUtc DateTime null);
+
+create index Sessions_QueryName on Sessions(QueryName);

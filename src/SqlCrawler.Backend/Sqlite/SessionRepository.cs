@@ -19,11 +19,11 @@ namespace SqlCrawler.Backend.Sqlite
         {
             record.StartedAtUtc = DateTime.UtcNow;
 
-            var id = _conn.Query<int>(
-                "insert into Sessions(QueryName, StartedAtUtc) values(@QueryName, @DataJson, StartedAtUtc); select @@identity()",
+            var rowId = _conn.Query<int>(
+                "insert into Sessions(QueryName, IsActive, StartedAtUtc) values(@QueryName, 0, @StartedAtUtc); select last_insert_rowid()",
                 record).Single();
 
-            record.Id = id;
+            record.RowId = rowId;
 
             return record;
         }
@@ -33,8 +33,8 @@ namespace SqlCrawler.Backend.Sqlite
             sessionRecord.FinishedAtUtc = DateTime.UtcNow;
 
             _conn.Execute(@"
-update Sessions set IsActive = 1, FinishedAtUtc = @FinishedAtUtc where Id = @Id;
-update Sessions set IsActive = 0 where Id <> @Id and IsActive = 1;
+update Sessions set IsActive = 1, FinishedAtUtc = @FinishedAtUtc where RowId = @RowId;
+update Sessions set IsActive = 0 where RowId <> @RowId and IsActive = 1;
 ", sessionRecord);
         }
     }

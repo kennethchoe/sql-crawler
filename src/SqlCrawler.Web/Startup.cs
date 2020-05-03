@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
+using SqlCrawler.Backend.Sqlite;
 using SqlCrawler.Web.IoC;
 
 namespace SqlCrawler.Web
@@ -33,9 +34,10 @@ namespace SqlCrawler.Web
             builder.RegisterModule(new WebAppModule(_config));
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DbUpService dbUpService)
         {
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+            dbUpService.Upgrade();
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)

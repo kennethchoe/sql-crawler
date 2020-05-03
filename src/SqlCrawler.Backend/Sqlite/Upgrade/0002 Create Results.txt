@@ -1,0 +1,8 @@
+﻿create table IF NOT EXISTS Results(
+	SessionRowId bigint not null,
+	ServerId nvarchar(50) not null,
+	DataJson text not null,
+	CreatedAtUtc DateTime not null);
+
+create index Results_SessionRowId on Results(SessionRowId);
+create index Results_ServerId on Results(ServerId);

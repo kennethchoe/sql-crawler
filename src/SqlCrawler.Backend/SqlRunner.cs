@@ -55,9 +55,8 @@ namespace SqlCrawler.Backend
 
                 _resultRepository.Insert(new ResultRecord
                 {
-                    SessionId = sessionRecord.Id,
+                    SessionRowId = sessionRecord.RowId,
                     ServerId = server.ServerId,
-                    QueryName = queryName,
                     DataJson = JsonConvert.SerializeObject(data)
                 });
             }

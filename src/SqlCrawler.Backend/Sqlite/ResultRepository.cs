@@ -19,7 +19,7 @@ namespace SqlCrawler.Backend.Sqlite
             record.CreatedAtUtc = DateTime.UtcNow;
             
             _conn.Execute(
-                "insert into Results(SessionId, ServerId, QueryName, Data, CreatedAtUtc) values(@SessionId, @ServerId, @QueryName, @DataJson, @CreatedAt)",
+                "insert into Results(SessionRowId, ServerId, DataJson, CreatedAtUtc) values(@SessionRowId, @ServerId, @DataJson, @CreatedAtUtc)",
                 record);
         }
 
@@ -28,8 +28,8 @@ namespace SqlCrawler.Backend.Sqlite
             var result = _conn.Query<ResultRecord>(@"
 select a.* 
   from Results a 
-       inner join Sessions b on a.SessionId = b.SessionId and b.IsActive = 1
- where a.QueryName = coalesce(@queryName, a.QueryName)
+       inner join Sessions b on a.SessionRowId = b.RowId and b.IsActive = 1
+ where b.QueryName = coalesce(@queryName, b.QueryName)
    and a.ServerId = coalesce(@serverId, a.ServerId)
 ", new { queryName, serverId });
             return result;
