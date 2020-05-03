@@ -8,6 +8,7 @@ Param(
 
 if (-not $PSBoundParameters.ContainsKey('skipRebuild')) {
     . .\build.ps1 -target build-docker
+    if ($LASTEXITCODE -gt 0) { exit $LASTEXITCODE; }
 }
 
 $resolvedPath = (Resolve-Path $dataPath).Path

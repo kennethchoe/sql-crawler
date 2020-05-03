@@ -30,10 +30,12 @@ export default {
     headers() {
       const result = [{ text: "ServerId", value: "ServerId" }];
       if (this.results.length > 0) {
-        Object.keys(this.results[0]).forEach(c => {
-          if (c === "ServerId") return;
-          result.push({ text: c, value: c });
-        });
+        for (let i = 0; i < this.results.length; i++) {
+          Object.keys(this.results[i]).forEach(c => {
+            if (result.findIndex(x => x.text === c) >= 0) return;
+            result.push({ text: c, value: c });
+          });
+        }
       }
       return result;
     }

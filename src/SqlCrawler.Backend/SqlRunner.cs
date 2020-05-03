@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Dapper;
 using HandlebarsDotNet;
 using LibGit2Sharp;
 using Newtonsoft.Json;
+using Serilog;
 using SqlCrawler.Backend.Core;
 using SqlCrawler.Backend.Sqlite;
 
@@ -49,15 +51,26 @@ namespace SqlCrawler.Backend
 
                 var processed = template(server);
 
-                var conn = new SqlConnection(server.ToConnectionString());
-                var data = await conn.QueryAsync(
-                    new CommandDefinition(processed, server, cancellationToken: cancellationToken, commandTimeout: _appConfig.CommandTimeoutInSeconds));
+                string dataJson;
+                try
+                {
+                    var conn = new SqlConnection(server.ToConnectionString());
+                    var data = await conn.QueryAsync(
+                        new CommandDefinition(processed, server, cancellationToken: cancellationToken,
+                            commandTimeout: _appConfig.CommandTimeoutInSeconds));
+                    dataJson = JsonConvert.SerializeObject(data);
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e, "Error while polling from server " + server.ServerId);
+                    dataJson = "[{Error: '" + e.Message.Replace("'", "\\'") + "'}]";
+                }
 
                 _resultRepository.Insert(new ResultRecord
                 {
                     SessionRowId = sessionRecord.RowId,
                     ServerId = server.ServerId,
-                    DataJson = JsonConvert.SerializeObject(data)
+                    DataJson = dataJson
                 });
             }
 

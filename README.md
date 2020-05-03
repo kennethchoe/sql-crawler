@@ -57,7 +57,6 @@ Because I forget them after a while...
 
 * user can stop running sql
 * better progress and error message while running polls
-* tolerate individual server failures. move IsActive from Sessions to Results.
 * user can view result by sql server
 
 ### Done
@@ -76,6 +75,7 @@ Because I forget them after a while...
 * docker batch accepts sql credential file path
 * sql source result json should be tabular-formatted properly
 * docker batch accepts sql source git path
+* tolerate individual server failures.
 
 ### Deferred
 
