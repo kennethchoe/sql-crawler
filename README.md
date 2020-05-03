@@ -42,6 +42,8 @@ Configure your git repo with permission, pull request enforced.
 * Run button should be primary color
 * user can view result by sql server
 * user can stop running sql
+* docker container is not working. did I use some library that doesn't work on linux?
+* make serilog to write to console, for any errors
 * docker batch accepts sql credential file path and sql source git path
 
 ### Done
