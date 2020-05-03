@@ -1,4 +1,4 @@
-﻿namespace SqlCrawler.Backend
+﻿namespace SqlCrawler.Backend.Core
 {
     public class SqlQueryInfo
     {

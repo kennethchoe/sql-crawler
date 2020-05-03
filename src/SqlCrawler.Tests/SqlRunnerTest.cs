@@ -6,6 +6,7 @@ using Autofac;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using SqlCrawler.Backend;
+using SqlCrawler.Backend.Sqlite;
 
 namespace SqlCrawler.Tests
 {
@@ -16,8 +17,12 @@ namespace SqlCrawler.Tests
         public async Task Run()
         {
             var scope = TestBootstrapper.Scope;
+            var repo = scope.Resolve<ResultRepository>();
             var runner = scope.Resolve<SqlRunner>();
-            var result = await runner.Run("Server DateTime", new CancellationToken());
+
+            var queryName = "Server DateTime";
+            await runner.Run(queryName, new CancellationToken());
+            var result = repo.Get(queryName, null);
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result, Formatting.Indented));
         }
     }

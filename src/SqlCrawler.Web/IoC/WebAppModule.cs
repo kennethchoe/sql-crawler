@@ -2,8 +2,10 @@
 using System.Linq;
 using System.Reflection;
 using Autofac;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using SqlCrawler.Backend;
+using SqlCrawler.Backend.Core;
 
 namespace SqlCrawler.Web.IoC
 {
@@ -21,6 +23,8 @@ namespace SqlCrawler.Web.IoC
             var appConfig = new AppConfig();
             _config.GetSection("App").Bind(appConfig);
             builder.RegisterInstance(appConfig).As<IAppConfig>();
+
+            builder.Register(x => new SqliteConnection("Data Source=" + appConfig.SqliteDataPath)).As<SqliteConnection>();
 
             var assemblies = new[]
             {

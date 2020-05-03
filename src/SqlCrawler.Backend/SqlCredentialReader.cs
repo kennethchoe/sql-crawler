@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 using CsvHelper.Configuration;
+using SqlCrawler.Backend.Core;
 
 namespace SqlCrawler.Backend
 {
@@ -22,6 +23,12 @@ namespace SqlCrawler.Backend
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
             var records = csv.GetRecords<SqlServerInfo>().ToList();
+
+            var dups = records.GroupBy(x => x.ServerId).Where(x => x.Count() > 1);
+            if (dups.Any())
+                throw new SqlCredentialsException("ServerId must be unique. Duplicated Id(s): " + 
+                                    dups.Select(x => x.Key).Aggregate((x, y) => x + ", " + y));
+            
             return records;
         }
     }

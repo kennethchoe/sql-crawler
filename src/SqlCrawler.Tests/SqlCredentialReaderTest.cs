@@ -4,6 +4,7 @@ using Autofac;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using SqlCrawler.Backend;
+using SqlCrawler.Backend.Core;
 
 namespace SqlCrawler.Tests
 {
@@ -11,15 +12,11 @@ namespace SqlCrawler.Tests
     class SqlCredentialReaderTest
     {
         [Test]
-        public void Read()
+        public void ToConnectionString()
         {
-            var appConfig = new AppConfig {SqlCredentialsFilePath = "sql-credentials-test2.csv"};
+            var appConfig = new AppConfig {SqlCredentialsFilePath = "sql-credentials-connstr-test.csv"};
 
-            // todo: how do i replace IAppConfig only on the scope? do i do it on container?
-            var builder = TestBootstrapper.GetContainerBuilder();
-            builder.RegisterInstance(appConfig).As<IAppConfig>();
-            var container = builder.Build();
-            var scope = container.BeginLifetimeScope();
+            var scope = BuildCustomScope(appConfig);
 
             var reader = scope.Resolve<SqlCredentialReader>();
             var infos = reader.Read().ToList();
@@ -29,6 +26,30 @@ namespace SqlCrawler.Tests
             {
                 Assert.AreEqual(info.Description, info.ToConnectionString());
             }
+        }
+
+        [Test]
+        public void DuplicateServerIdsShouldRaiseException()
+        {
+            var appConfig = new AppConfig { SqlCredentialsFilePath = "sql-credentials-dup-server-ids.csv" };
+
+            var scope = BuildCustomScope(appConfig);
+
+            var reader = scope.Resolve<SqlCredentialReader>();
+            Assert.Throws(
+                Is.TypeOf<SqlCredentialsException>()
+                    .And.Message.Contains("svr1, svr2"),
+                delegate { reader.Read().ToList(); });
+        }
+
+        private ILifetimeScope BuildCustomScope(AppConfig appConfig)
+        {
+            // todo: how do i replace IAppConfig only on the scope? do i do it on container?
+            var builder = TestBootstrapper.GetContainerBuilder();
+            builder.RegisterInstance(appConfig).As<IAppConfig>();
+            var container = builder.Build();
+            var scope = container.BeginLifetimeScope();
+            return scope;
         }
     }
 }
