@@ -37,6 +37,7 @@ Configure your git repo with permission, pull request enforced.
     *  `-port 1234` : run it on http:1234.
     *  `-dataPath real-secret-path` : instead of `docker-test-data` path, use real-secret-path where you keep actual credentials of SQL servers.
     *  `-gitSqlSource https://git-repo-url` : specify sql source. Default value is `https://github.com/kennethchoe/sql-crawler-sqls.git`, which is sample repo that shows what is possible.
+    *  `-gitUsername username -gitPassword password`  : specify git repo's credential, if needed.
     *  `-skipRebuild` skips rebuilding docker image.
 
 ## Useful Docker Commands
