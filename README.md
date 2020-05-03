@@ -50,7 +50,6 @@ Because I forget them after a while...
 
 ## Backlog
 
-* sql source result json should be tabular-formatted properly
 * queries should show sql sources in pre form
 * Run button should be primary color
 * user can view result by sql server
@@ -73,6 +72,7 @@ Because I forget them after a while...
     *  It was [https://github.com/libgit2/libgit2sharp/issues/1703](https://github.com/libgit2/libgit2sharp/issues/1703)
 * make serilog to write to console, for any errors
 * docker batch accepts sql credential file path
+* sql source result json should be tabular-formatted properly
 
 ### Deferred
 

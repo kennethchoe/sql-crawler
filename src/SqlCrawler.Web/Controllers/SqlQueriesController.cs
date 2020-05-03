@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SqlCrawler.Backend;
 using SqlCrawler.Backend.Core;
 using SqlCrawler.Backend.Sqlite;
@@ -15,14 +16,17 @@ namespace SqlCrawler.Web.Controllers
         private readonly SqlQueryReader _sqlQueryReader;
         private readonly SqlRunner _runner;
         private readonly ResultRepository _resultRepository;
+        private readonly Tabularizer _tabularizer;
 
         public SqlQueriesController(SqlQueryReader sqlQueryReader,
             SqlRunner runner,
-            ResultRepository resultRepository)
+            ResultRepository resultRepository,
+            Tabularizer tabularizer)
         {
             _sqlQueryReader = sqlQueryReader;
             _runner = runner;
             _resultRepository = resultRepository;
+            _tabularizer = tabularizer;
         }
 
         [HttpGet]
@@ -35,10 +39,10 @@ namespace SqlCrawler.Web.Controllers
 
         [HttpGet]
         [Route("{queryName}")]
-        public IEnumerable<dynamic> GetByQuery(string queryName)
+        public string GetByQuery(string queryName)
         {
             var result = _resultRepository.Get(queryName, null);
-            return result;
+            return JsonConvert.SerializeObject(_tabularizer.Process(result));
         }
 
         [HttpPost]

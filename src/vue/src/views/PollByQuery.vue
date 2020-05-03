@@ -28,10 +28,14 @@ export default {
   computed: {
     ...mapState(["results"]),
     headers() {
+      const result = [{ text: "ServerId", value: "ServerId" }];
       if (this.results.length > 0) {
-        return Object.keys(this.results[0]).map(c => ({ text: c, value: c }));
+        Object.keys(this.results[0]).forEach(c => {
+          if (c === "ServerId") return;
+          result.push({ text: c, value: c });
+        });
       }
-      return [];
+      return result;
     }
   },
   methods: {
