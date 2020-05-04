@@ -3,7 +3,8 @@
     <v-content>
       <div id="nav">
         <router-link to="/">Queries</router-link> |
-        <router-link to="/servers">Servers</router-link>
+        <router-link to="/servers">Servers</router-link> |
+        <router-link to="/settings">Settings</router-link>
       </div>
       <v-container>
         <v-row no-gutters>

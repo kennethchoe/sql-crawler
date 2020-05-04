@@ -9,7 +9,8 @@ export default new Vuex.Store({
     liveness: false,
     servers: [],
     queries: [],
-    results: []
+    results: [],
+    settings: []
   }),
   mutations: {
     SET_LIVENESS(state, value) {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     SET_RESULTS(state, results) {
       state.results = results;
+    },
+    SET_SETTINGS(state, settings) {
+      state.settings = settings;
     }
   },
   actions: {
@@ -55,6 +59,11 @@ export default new Vuex.Store({
     getResults(context, queryName) {
       return axios.get(`/api/sqlQueries/${queryName}`).then(r => {
         context.commit("SET_RESULTS", r.data);
+      });
+    },
+    getSettings(context) {
+      return axios.get(`/api/settings`).then(r => {
+        context.commit("SET_SETTINGS", r.data);
       });
     }
   },

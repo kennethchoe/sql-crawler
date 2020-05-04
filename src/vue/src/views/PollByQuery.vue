@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title>{{ queryName }}</v-card-title>
       <v-card-text
-        ><pre class="query-body">{{ queryBody }}</pre></v-card-text
+        ><pre class="pre-text">{{ queryBody }}</pre></v-card-text
       >
       <v-card-actions>
         <v-spacer />
@@ -37,7 +37,7 @@
             </v-btn>
             <v-toolbar-title>More Info</v-toolbar-title>
           </v-toolbar>
-          <pre class="query-body">{{ moreInfo }}</pre>
+          <pre class="pre-text">{{ moreInfo }}</pre>
         </v-card>
       </v-dialog>
       <v-btn text @click="hasError = false">Close </v-btn>
@@ -143,7 +143,7 @@ export default {
 </script>
 
 <style scoped>
-.query-body {
+.pre-text {
   white-space: pre;
   text-align: left;
   overflow: auto;

@@ -17,6 +17,12 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "servers" */ "./views/Servers.vue")
   },
   {
+    path: "/settings",
+    name: "Settings",
+    component: () =>
+      import(/* webpackChunkName: "settings" */ "./views/Settings.vue")
+  },
+  {
     path: "/poll-by-query/:queryName",
     name: "poll-by-query",
     props: true,
