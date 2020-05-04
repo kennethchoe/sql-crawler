@@ -53,10 +53,7 @@ Because I forget them after a while...
 
 ## Backlog
 
-* vuetify styling is not working - Run button should be primary color
-
-* user can stop running sql
-* better progress and error message while running polls
+* better progress while running polls
 * user can view result by sql server
 
 ### Done
@@ -77,6 +74,9 @@ Because I forget them after a while...
 * docker batch accepts sql source git path
 * tolerate individual server failures.
 * queries should show sql sources in pre form
+* vuetify styling is not working - Run button should be primary color
+* user can stop running sql
+* better error message when running polls fails
 
 ### Deferred
 

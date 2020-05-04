@@ -5,6 +5,8 @@
       :options.sync="options"
       :loading="loading"
       :items="queries"
+      :items-per-page="-1"
+      :hide-default-footer="true"
     >
       <template v-slot:item.name="{ item }">
         <router-link

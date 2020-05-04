@@ -5,6 +5,8 @@
       :options.sync="options"
       :loading="loading"
       :items="servers"
+      :items-per-page="-1"
+      :hide-default-footer="true"
     >
       <!-- <template v-slot:item.serverId="{ item }">
         <router-link

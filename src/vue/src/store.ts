@@ -41,10 +41,16 @@ export default new Vuex.Store({
         context.commit("SET_QUERIES", r.data);
       });
     },
-    run(context, queryName) {
-      return axios.post(`/api/sqlQueries/${queryName}/run`).then(() => {
-        return context.dispatch("getResults", queryName);
-      });
+    run(context, { queryName, cancellationSource }) {
+      return axios
+        .post(
+          `/api/sqlQueries/${queryName}/run`,
+          {},
+          { cancelToken: cancellationSource.token }
+        )
+        .then(() => {
+          return context.dispatch("getResults", queryName);
+        });
     },
     getResults(context, queryName) {
       return axios.get(`/api/sqlQueries/${queryName}`).then(r => {

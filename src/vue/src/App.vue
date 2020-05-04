@@ -1,28 +1,22 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Queries</router-link> |
-      <router-link to="/servers">Servers</router-link>
-    </div>
-    <v-container>
-      <v-row no-gutters>
-        <v-col>
-          <router-view />
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+  <v-app>
+    <v-content>
+      <div id="nav">
+        <router-link to="/">Queries</router-link> |
+        <router-link to="/servers">Servers</router-link>
+      </div>
+      <v-container>
+        <v-row no-gutters>
+          <v-col>
+            <router-view />
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
 #nav {
   padding: 30px;
 
