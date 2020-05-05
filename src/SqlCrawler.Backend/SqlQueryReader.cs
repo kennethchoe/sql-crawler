@@ -7,13 +7,13 @@ namespace SqlCrawler.Backend
 {
     public class SqlQueryReader
     {
-        private const string Path = "sql-source";
-
         private readonly IAppConfig _appConfig;
+        private string _clonePath;
 
         public SqlQueryReader(IAppConfig appConfig)
         {
             _appConfig = appConfig;
+            _clonePath = Path.Combine(_appConfig.SqlSourceGitClonePath);
         }
 
         // https://stackoverflow.com/questions/1701457/directory-delete-doesnt-work-access-denied-error-but-under-windows-explorer-it
@@ -46,31 +46,35 @@ namespace SqlCrawler.Backend
             };
         }
 
+        public void ClearCache()
+        {
+            if (Directory.Exists(_clonePath))
+            {
+                SetAttributesNormal(new DirectoryInfo(_clonePath));
+                Directory.Delete(_clonePath, true);
+            }
+        }
+
         public void Reload()
         {
-            if (Directory.Exists(Path))
-            {
-                SetAttributesNormal(new DirectoryInfo(Path));
-                Directory.Delete(Path, true);
-            }
-            Directory.CreateDirectory(Path);
-
-
-            Repository.Clone(_appConfig.SqlSourceGitRepoPath, Path, BuildCloneOption());
+            ClearCache();
+            Directory.CreateDirectory(_clonePath);
+            
+            Repository.Clone(_appConfig.SqlSourceGitRepoUrl, _clonePath, BuildCloneOption());
         }
 
         public IEnumerable<SqlQueryInfo> Read()
         {
-            if (!Directory.Exists(Path)) Reload();
+            if (!Directory.Exists(_clonePath)) Reload();
 
             var result = new List<SqlQueryInfo>();
 
-            foreach (var file in Directory.GetFiles(Path))
+            foreach (var file in Directory.GetFiles(_clonePath))
             {
                 if (file.ToLower().EndsWith(".sql"))
                 {
                     result.Add(new SqlQueryInfo {
-                        Name = file.Substring(Path.Length + 1, file.Length - Path.Length - 5), 
+                        Name = file.Substring(_clonePath.Length + 1, file.Length - _clonePath.Length - 5), 
                         Query = File.ReadAllText(file)
                             });
                 }

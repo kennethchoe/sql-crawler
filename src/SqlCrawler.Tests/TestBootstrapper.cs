@@ -32,6 +32,13 @@ namespace SqlCrawler.Tests
             sourceReader.Reload();
         }
 
+        [OneTimeTearDown]
+        public void Teardown()
+        {
+            var sqlQueryReader = _container.Resolve<SqlQueryReader>();
+            sqlQueryReader.ClearCache();
+        }
+
         public static ContainerBuilder GetContainerBuilder()
         {
             var config = InitConfiguration();

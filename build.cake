@@ -70,9 +70,13 @@ Task("Run-DotNet-Tests")
     .IsDependentOn("Build-DotNet")
     .Does(() =>
 {
-    var exitCode = StartProcess("dotnet", "test " + solution + " -o output\\dotnet-tests");
-    if (exitCode != 0)
-        throw new Exception("Test failed.");
+    DotNetCoreTest(
+                solution,
+                new DotNetCoreTestSettings()
+                {
+                    Configuration = configuration,
+                    OutputDirectory = "output/dotnet-tests"
+                });
 });
 
 Task("Run-Tests")

@@ -3,17 +3,19 @@
     public interface IAppConfig
     {
         string[] SqlCredentialsFilePath { get; }
-        string SqlSourceGitRepoPath { get; }
-        int? CommandTimeoutInSeconds { get; set; }
-        string[] SqliteDataPath { get; set; }
-        string SqlSourceGitUsername { get; set; }
-        string SqlSourceGitPassword { get; set; }
+        string SqlSourceGitRepoUrl { get; }
+        string[] SqlSourceGitClonePath { get; }
+        int? CommandTimeoutInSeconds { get; }
+        string[] SqliteDataPath { get; }
+        string SqlSourceGitUsername { get; }
+        string SqlSourceGitPassword { get; }
     }
 
     public class AppConfig: IAppConfig
     {
         public string[] SqlCredentialsFilePath { get; set; }
-        public string SqlSourceGitRepoPath { get; set; }
+        public string SqlSourceGitRepoUrl { get; set; }
+        public string[] SqlSourceGitClonePath { get; set; }
         public int? CommandTimeoutInSeconds { get; set; }
         public string[] SqliteDataPath { get; set; }
         public string SqlSourceGitUsername { get; set; }
