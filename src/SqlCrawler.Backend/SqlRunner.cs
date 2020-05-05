@@ -54,7 +54,7 @@ namespace SqlCrawler.Backend
                 string dataJson;
                 try
                 {
-                    var conn = new SqlConnection(server.ToConnectionString());
+                    var conn = new SqlConnection(server.ToConnectionString(_appConfig.ConnectionTimeoutInSeconds));
                     var data = await conn.QueryAsync(
                         new CommandDefinition(processed, server, cancellationToken: cancellationToken,
                             commandTimeout: _appConfig.CommandTimeoutInSeconds));

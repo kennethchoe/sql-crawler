@@ -16,7 +16,7 @@
         public string SqlUsername { get; set; }
         public string SqlPassword { get; set; }
 
-        public string ToConnectionString()
+        public string ToConnectionString(int? connectionTimeout)
         {
             var result = "Data Source=" + DataSource + ";";
 
@@ -24,6 +24,9 @@
                 result += "Integrated Security=SSPI;";
             else
                 result += $"User Id={SqlUsername};Password={SqlPassword};";
+
+            if (connectionTimeout != null)
+                result += "Connect Timeout=" + connectionTimeout + ";";
 
             return result;
         }

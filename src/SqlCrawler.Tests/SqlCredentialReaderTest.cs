@@ -24,7 +24,7 @@ namespace SqlCrawler.Tests
 
             foreach (var info in infos)
             {
-                Assert.AreEqual(info.Description, info.ToConnectionString());
+                Assert.AreEqual(info.Description, info.ToConnectionString(null));
             }
         }
 
