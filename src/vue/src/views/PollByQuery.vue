@@ -94,11 +94,12 @@ export default {
       return result;
     },
     queryBody() {
-      return this.queries.filter(x => x.name === this.queryName)[0].query;
+      const query = this.queries.filter(x => x.name === this.queryName);
+      return query.length ? query[0].query : "";
     }
   },
   methods: {
-    ...mapActions(["getResults", "run"]),
+    ...mapActions(["getResults", "run", "ensureWeGotQueries"]),
     onRun() {
       const { CancelToken } = axios;
       this.cancellationSource = CancelToken.source();
@@ -130,9 +131,13 @@ export default {
     },
     init() {
       this.loading = true;
-      this.getResults(this.queryName).finally(() => {
-        this.loading = false;
-      });
+      this.ensureWeGotQueries()
+        .then(() => {
+          return this.getResults(this.queryName);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     }
   },
   mounted() {

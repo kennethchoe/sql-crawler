@@ -77,6 +77,7 @@ Because I forget them after a while...
 * user can stop running sql
 * better error message when running polls fails
 * better progress while running polls
+* URL on specific topic should load the result
 
 ### Deferred
 

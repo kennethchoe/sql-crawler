@@ -69,6 +69,11 @@ export default new Vuex.Store({
           return context.dispatch("getResults", queryName);
         });
     },
+    ensureWeGotQueries(context) {
+      if (context.state.queries.length) return;
+
+      return context.dispatch("getQueries");
+    },
     getResults(context, queryName) {
       return axios.get(`/api/sqlQueries/${queryName}`).then(r => {
         context.commit("SET_RESULTS", r.data);
