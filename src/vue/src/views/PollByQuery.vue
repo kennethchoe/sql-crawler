@@ -3,8 +3,8 @@
     <v-card>
       <v-card-title>{{ queryName }}</v-card-title>
       <v-card-text
-        ><pre class="pre-text">{{ queryBody }}</pre></v-card-text
-      >
+        ><pre class="pre-text">{{ queryBody }}</pre>
+      </v-card-text>
       <v-card-actions>
         <v-spacer />
         <v-btn color="primary" @click="onRun" :loading="running" width="100"
@@ -46,11 +46,15 @@
     <v-data-table
       :headers="headers"
       :options.sync="options"
-      :loading="loading"
+      :loading="loading || running"
       :items="results"
       :items-per-page="-1"
       :hide-default-footer="true"
-    />
+    >
+      <template v-slot:progress>
+        <v-progress-linear :indeterminate="loading" :value="queryProgress" />
+      </template>
+    </v-data-table>
   </div>
 </template>
 
@@ -76,7 +80,7 @@ export default {
     cancellationSource: {}
   }),
   computed: {
-    ...mapState(["results", "queries"]),
+    ...mapState(["results", "queries", "queryProgress"]),
     headers() {
       const result = [{ text: "ServerId", value: "ServerId" }];
       if (this.results.length > 0) {

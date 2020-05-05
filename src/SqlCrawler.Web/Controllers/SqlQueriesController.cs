@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -15,16 +17,19 @@ namespace SqlCrawler.Web.Controllers
     {
         private readonly SqlQueryReader _sqlQueryReader;
         private readonly SqlRunner _runner;
+        private readonly SqlCredentialReader _sqlCredentialReader;
         private readonly ResultRepository _resultRepository;
         private readonly Tabularizer _tabularizer;
 
         public SqlQueriesController(SqlQueryReader sqlQueryReader,
             SqlRunner runner,
+            SqlCredentialReader sqlCredentialReader,
             ResultRepository resultRepository,
             Tabularizer tabularizer)
         {
             _sqlQueryReader = sqlQueryReader;
             _runner = runner;
+            _sqlCredentialReader = sqlCredentialReader;
             _resultRepository = resultRepository;
             _tabularizer = tabularizer;
         }
@@ -47,10 +52,22 @@ namespace SqlCrawler.Web.Controllers
 
         [HttpPost]
         [Route("{queryName}/run")]
-        public async Task Run(string queryName, CancellationToken token)
+        public async Task<ActionResult> Run(string queryName, CancellationToken token)
         {
+            Response.StatusCode = 200;
+            Response.ContentType = "text/event-stream";
+            var serverCount = _sqlCredentialReader.Read().Count();
+            Response.ContentLength = serverCount;
+
+            var sw = new StreamWriter(Response.Body);
+
             _sqlQueryReader.Reload();
-            await _runner.Run(queryName, token);
+            await _runner.Run(queryName, token, async () =>
+            {
+                await sw.WriteAsync("1");
+                await sw.FlushAsync();
+            });
+            return null;
         }
     }
 }

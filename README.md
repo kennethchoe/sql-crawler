@@ -53,7 +53,6 @@ Because I forget them after a while...
 
 ## Backlog
 
-* better progress while running polls
 * user can view result by sql server
 
 ### Done
@@ -77,6 +76,7 @@ Because I forget them after a while...
 * vuetify styling is not working - Run button should be primary color
 * user can stop running sql
 * better error message when running polls fails
+* better progress while running polls
 
 ### Deferred
 

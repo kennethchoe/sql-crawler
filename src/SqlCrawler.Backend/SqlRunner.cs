@@ -33,7 +33,7 @@ namespace SqlCrawler.Backend
             _resultRepository = resultRepository;
         }
 
-        public async Task Run(string queryName, CancellationToken cancellationToken)
+        public async Task Run(string queryName, CancellationToken cancellationToken, Action callback)
         {
             var sqls = _queryReader.Read();
             var template = Handlebars.Compile(sqls.Single(x => x.Name == queryName).Query);
@@ -72,6 +72,8 @@ namespace SqlCrawler.Backend
                     ServerId = server.ServerId,
                     DataJson = dataJson
                 });
+
+                callback();
             }
 
             _sessionRepository.Finish(sessionRecord);

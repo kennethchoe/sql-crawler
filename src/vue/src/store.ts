@@ -9,6 +9,7 @@ export default new Vuex.Store({
     liveness: false,
     servers: [],
     queries: [],
+    queryProgress: 0,
     results: [],
     settings: []
   }),
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     SET_QUERIES(state, queries) {
       state.queries = queries;
+    },
+    SET_QUERY_PROGRESS(state, value) {
+      state.queryProgress = value;
     },
     SET_RESULTS(state, results) {
       state.results = results;
@@ -46,11 +50,20 @@ export default new Vuex.Store({
       });
     },
     run(context, { queryName, cancellationSource }) {
+      context.commit("SET_QUERY_PROGRESS", 0);
       return axios
         .post(
           `/api/sqlQueries/${queryName}/run`,
           {},
-          { cancelToken: cancellationSource.token }
+          {
+            cancelToken: cancellationSource.token,
+            onDownloadProgress: function(progressEvent) {
+              context.commit(
+                "SET_QUERY_PROGRESS",
+                (progressEvent.loaded / progressEvent.total) * 100
+              );
+            }
+          }
         )
         .then(() => {
           return context.dispatch("getResults", queryName);
