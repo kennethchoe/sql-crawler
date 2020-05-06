@@ -53,7 +53,7 @@ export default new Vuex.Store({
       context.commit("SET_QUERY_PROGRESS", 0);
       return axios
         .post(
-          `/api/sqlQueries/${queryName}/run`,
+          `api/sqlQueries/${queryName}/run`,
           {},
           {
             cancelToken: cancellationSource.token,
