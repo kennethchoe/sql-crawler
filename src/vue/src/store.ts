@@ -35,17 +35,17 @@ export default new Vuex.Store({
   },
   actions: {
     getLiveness(context) {
-      return axios.get("/api/monitoring/liveness").then(r => {
+      return axios.get("api/monitoring/liveness").then(r => {
         context.commit("SET_LIVENESS", r.data);
       });
     },
     getServers(context) {
-      return axios.get("/api/servers").then(r => {
+      return axios.get("api/servers").then(r => {
         context.commit("SET_SERVERS", r.data);
       });
     },
     getQueries(context) {
-      return axios.get("/api/sqlQueries").then(r => {
+      return axios.get("api/sqlQueries").then(r => {
         context.commit("SET_QUERIES", r.data);
       });
     },
@@ -75,12 +75,12 @@ export default new Vuex.Store({
       return context.dispatch("getQueries");
     },
     getResults(context, queryName) {
-      return axios.get(`/api/sqlQueries/${queryName}`).then(r => {
+      return axios.get(`api/sqlQueries/${queryName}`).then(r => {
         context.commit("SET_RESULTS", r.data);
       });
     },
     getSettings(context) {
-      return axios.get(`/api/settings`).then(r => {
+      return axios.get(`api/settings`).then(r => {
         context.commit("SET_SETTINGS", r.data);
       });
     }
