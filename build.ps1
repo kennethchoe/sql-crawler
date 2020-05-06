@@ -95,9 +95,6 @@ function MD5HashFile([string] $filePath)
 
 function GetProxyEnabledWebClient
 {
-    # https://github.com/cake-build/resources/issues/39
-    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
-
     $wc = New-Object System.Net.WebClient
     $proxy = [System.Net.WebRequest]::GetSystemWebProxy()
     $proxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
