@@ -22,22 +22,22 @@
     <v-snackbar v-model="hasError" top :timeout="0">
       {{ errorMessage }}
       <v-dialog
-        v-model="showMoreInfo"
+        v-model="showErrorInfo"
         fullscreen
         hide-overlay
         transition="dialog-bottom-transition"
       >
         <template v-slot:activator="{ on }">
-          <v-btn v-if="!!moreInfo" text v-on="on">More Info</v-btn>
+          <v-btn v-if="!!ErrorInfo" text v-on="on">More Info</v-btn>
         </template>
         <v-card>
           <v-toolbar dark color="primary">
-            <v-btn icon dark @click="showMoreInfo = false">
+            <v-btn icon dark @click="showErrorInfo = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title>More Info</v-toolbar-title>
           </v-toolbar>
-          <pre class="pre-text">{{ moreInfo }}</pre>
+          <pre class="pre-text">{{ ErrorInfo }}</pre>
         </v-card>
       </v-dialog>
       <v-btn text @click="hasError = false">Close </v-btn>
@@ -49,8 +49,27 @@
       :loading="loading || running"
       :items="results"
       :items-per-page="-1"
+      item-key="ServerId"
+      show-expand
       :hide-default-footer="true"
     >
+      <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
+        <v-icon
+          @click="expand(true)"
+          v-if="item.Error && !isExpanded"
+          color="error"
+          >mdi-alert-circle</v-icon
+        >
+        <v-icon
+          @click="expand(false)"
+          v-if="item.Error && isExpanded"
+          color="error"
+          >mdi-alert-circle-outline</v-icon
+        >
+      </template>
+      <template v-slot:expanded-item="{ headers, item }">
+        <error-info :headers="headers" :item="item" />
+      </template>
       <template v-slot:progress>
         <v-progress-linear :indeterminate="loading" :value="queryProgress" />
       </template>
@@ -61,8 +80,12 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import axios from "axios";
+import ErrorInfo from "./ErrorInfo.vue";
 
 export default {
+  components: {
+    ErrorInfo
+  },
   props: {
     queryName: {
       type: String,
@@ -75,8 +98,8 @@ export default {
     options: {},
     hasError: false,
     errorMessage: "",
-    showMoreInfo: false,
-    moreInfo: "",
+    showErrorInfo: false,
+    ErrorInfo: "",
     cancellationSource: {}
   }),
   computed: {
@@ -86,6 +109,7 @@ export default {
       if (this.results.length > 0) {
         for (let i = 0; i < this.results.length; i++) {
           Object.keys(this.results[i]).forEach(c => {
+            if (c === "Error") return;
             if (result.findIndex(x => x.text === c) >= 0) return;
             result.push({ text: c, value: c });
           });
@@ -106,7 +130,7 @@ export default {
 
       this.running = true;
       this.errorMessage = "";
-      this.moreInfo = "";
+      this.ErrorInfo = "";
       this.hasError = false;
       const promise = this.run({
         queryName: this.queryName,
@@ -119,7 +143,7 @@ export default {
             return;
           }
           this.errorMessage = error.message;
-          this.moreInfo = error.response ? error.response.data : "";
+          this.ErrorInfo = error.response ? error.response.data : "";
           this.hasError = true;
         })
         .finally(() => {
