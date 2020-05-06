@@ -13,6 +13,7 @@ module.exports = {
   },
   productionSourceMap: false,
   outputDir: '../SqlCrawler.Web/wwwroot',
+  publicPath: process.env.WEBAPP_PUBLIC_PATH || '/',
   chainWebpack: (config) => {
     config.module.rule('eslint').use('eslint-loader').options({
       fix: true,
