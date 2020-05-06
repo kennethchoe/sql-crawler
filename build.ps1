@@ -95,6 +95,9 @@ function MD5HashFile([string] $filePath)
 
 function GetProxyEnabledWebClient
 {
+    # https://github.com/cake-build/resources/issues/39
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
+
     $wc = New-Object System.Net.WebClient
     $proxy = [System.Net.WebRequest]::GetSystemWebProxy()
     $proxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
@@ -124,9 +127,6 @@ if ((Test-Path $PSScriptRoot) -and !(Test-Path $TOOLS_DIR)) {
     Write-Verbose -Message "Creating tools directory..."
     New-Item -Path $TOOLS_DIR -Type Directory | Out-Null
 }
-
-# https://github.com/cake-build/resources/issues/39
-[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
 
 # Make sure that packages.config exist.
 if (!(Test-Path $PACKAGES_CONFIG)) {
