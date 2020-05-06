@@ -9,6 +9,10 @@ Connect to multiple SQL database servers and run queries to collect data.
 3. Credential to production sql servers is managed by different department.
 4. Your polling sql statement needs to go through approval process.
 
+## Demo
+
+[https://agilesalt.net/sql-crawler](https://agilesalt.net/sql-crawler)
+
 ## How It Works
 
 ### Development
@@ -54,33 +58,3 @@ Because I forget them after a while...
 ## Backlog
 
 * user can view result by sql server
-
-### Done
-
-* dev mode works with vue npm server and asp.net core server
-* ci creates docker package that has vue transpiled into asp.net core server
-* web app takes sql server list input
-* web app takes sql source input
-* user can view sql server list
-* user can view sql sources
-* user can select and run sql queries
-* user can view result by sql source
-* docker container is not working. did I use some library that doesn't work on linux?
-    *  It was [https://github.com/libgit2/libgit2sharp/issues/1703](https://github.com/libgit2/libgit2sharp/issues/1703)
-* make serilog to write to console, for any errors
-* docker batch accepts sql credential file path
-* sql source result json should be tabular-formatted properly
-* docker batch accepts sql source git path
-* tolerate individual server failures.
-* queries should show sql sources in pre form
-* vuetify styling is not working - Run button should be primary color
-* user can stop running sql
-* better error message when running polls fails
-* better progress while running polls
-* URL on specific topic should load the result
-
-### Deferred
-
-* user can revise sql source and sql crawler keeps the snapshot => resolvable procedurally
-* user can view previous session's result => not core feature. via git, history is trackable if needed.
-* user can add custom tokens on sql server list and consume on sql source => just added UserData1 and UserData2

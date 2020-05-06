@@ -7,6 +7,7 @@ using Dapper;
 using HandlebarsDotNet;
 using LibGit2Sharp;
 using Newtonsoft.Json;
+using Omu.ValueInjecter;
 using Serilog;
 using SqlCrawler.Backend.Core;
 using SqlCrawler.Backend.Sqlite;
@@ -47,16 +48,19 @@ namespace SqlCrawler.Backend
 
             foreach (var server in servers)
             {
+                var serverPublic = new SqlServerInfoPublic();
+                serverPublic.InjectFrom(server);
+
                 if (cancellationToken.IsCancellationRequested) throw new UserCancelledException();
 
-                var processed = template(server);
+                var processed = template(serverPublic);
 
                 string dataJson;
                 try
                 {
                     var conn = new SqlConnection(server.ToConnectionString(_appConfig.ConnectionTimeoutInSeconds));
                     var data = await conn.QueryAsync(
-                        new CommandDefinition(processed, server, cancellationToken: cancellationToken,
+                        new CommandDefinition(processed, serverPublic, cancellationToken: cancellationToken,
                             commandTimeout: _appConfig.CommandTimeoutInSeconds));
                     dataJson = JsonConvert.SerializeObject(data);
                 }
