@@ -45,49 +45,28 @@
       <v-btn text @click="hasError = false">Close </v-btn>
     </v-snackbar>
     <br />
-    <v-data-table
-      :headers="headers"
-      :options.sync="options"
-      :loading="loading || running"
-      :items="results"
-      :items-per-page="-1"
-      item-key="ServerId"
-      show-expand
-      :hide-default-footer="true"
-    >
-      <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
-        <v-icon
-          @click="expand(true)"
-          v-if="item.Error && !isExpanded"
-          color="error"
-          >mdi-alert-circle</v-icon
-        >
-        <v-icon
-          @click="expand(false)"
-          v-if="item.Error && isExpanded"
-          color="error"
-          >mdi-alert-circle-outline</v-icon
-        >
-      </template>
-      <template v-slot:expanded-item="{ headers, item }">
-        <error-info :headers="headers" :item="item" />
-      </template>
-      <template v-slot:progress>
-        <v-progress-linear :indeterminate="loading" :value="queryProgress" />
-      </template>
-    </v-data-table>
+    <dynamic-column-table
+      :loading="loading"
+      :running="running"
+      :loading-progress="queryProgress"
+      :results="results"
+      :initialHeaders="[
+        { text: 'ServerId', value: 'ServerId' },
+        { text: 'ServerName', value: 'ServerName' }
+      ]"
+    />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
 import axios from "axios";
-import ErrorInfo from "./ErrorInfo.vue";
+import DynamicColumnTable from "../components/DynamicColumnTable.vue";
 import { toLocalString } from "./formatter";
 
 export default {
   components: {
-    ErrorInfo
+    DynamicColumnTable
   },
   props: {
     queryName: {
@@ -98,7 +77,6 @@ export default {
   data: () => ({
     loading: false,
     running: false,
-    options: {},
     hasError: false,
     errorMessage: "",
     showErrorInfo: false,
@@ -107,19 +85,6 @@ export default {
   }),
   computed: {
     ...mapState(["results", "queries", "queryProgress"]),
-    headers() {
-      const result = [{ text: "ServerId", value: "ServerId" }];
-      if (this.results.length > 0) {
-        for (let i = 0; i < this.results.length; i++) {
-          Object.keys(this.results[i]).forEach(c => {
-            if (c === "Error") return;
-            if (result.findIndex(x => x.text === c) >= 0) return;
-            result.push({ text: c, value: c });
-          });
-        }
-      }
-      return result;
-    },
     queryBody() {
       const query = this.queries.filter(x => x.name === this.queryName);
       return query.length ? query[0].query : "";

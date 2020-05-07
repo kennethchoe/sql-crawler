@@ -9,8 +9,17 @@ namespace SqlCrawler.Backend
 {
     public class Tabularizer
     {
+        private readonly SqlCredentialReader _reader;
+
+        public Tabularizer(SqlCredentialReader reader)
+        {
+            _reader = reader;
+        }
+
         public IEnumerable<dynamic> Process(IEnumerable<ResultRecord> records)
         {
+            var servers = _reader.Read();
+
             foreach (var record in records)
             {
                 dynamic result = new ExpandoObject();
@@ -32,6 +41,7 @@ namespace SqlCrawler.Backend
                 }
 
                 result.ServerId = record.ServerId;
+                result.ServerName = servers.SingleOrDefault(x => x.ServerId == record.ServerId)?.ServerName;
                 yield return result;
             }
         }
