@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>cs_core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="AppConfig.ts">
+      <CustomToolNamespace>..\..\..\SqlCrawler.Backend\Core\AppConfig.cs</CustomToolNamespace>
+    </None>
+    <None Update="SqlQueryInfo.ts">
+      <CustomToolNamespace>..\..\..\SqlCrawler.Backend\Core\SqlQueryInfo.cs</CustomToolNamespace>
+    </None>
+    <None Update="SqlServerInfo.ts">
+      <CustomToolNamespace>..\..\..\SqlCrawler.Backend\Core\SqlServerInfo.cs</CustomToolNamespace>
+    </None>
+    <None Update="SqlServerInfoPublic.ts">
+      <CustomToolNamespace>..\..\..\SqlCrawler.Backend\Core\SqlServerInfoPublic.cs</CustomToolNamespace>
+    </None>
+  </ItemGroup>
+</Project>

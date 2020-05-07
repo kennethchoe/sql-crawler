@@ -22,7 +22,8 @@ namespace SqlCrawler.Web.Controllers
             return new Dictionary<string, string>
             {
                 { "SqlSourceGitRepoUrl", string.Format("<a href='{0}'>{0}</a>", _config.SqlSourceGitRepoUrl) },
-                { "CommandTimeoutInSeconds", _config.CommandTimeoutInSeconds.ToString() }
+                { "CommandTimeoutInSeconds", _config.CommandTimeoutInSeconds.ToString() },
+                { "ConnectionTimeoutInSeconds", _config.ConnectionTimeoutInSeconds.ToString() },
             }.ToList();
         }
     }

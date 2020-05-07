@@ -19,18 +19,21 @@ namespace SqlCrawler.Web.Controllers
         private readonly SqlRunner _runner;
         private readonly SqlCredentialReader _sqlCredentialReader;
         private readonly ResultRepository _resultRepository;
+        private readonly SessionRepository _sessionRepository;
         private readonly Tabularizer _tabularizer;
 
         public SqlQueriesController(SqlQueryReader sqlQueryReader,
             SqlRunner runner,
             SqlCredentialReader sqlCredentialReader,
             ResultRepository resultRepository,
+            SessionRepository sessionRepository,
             Tabularizer tabularizer)
         {
             _sqlQueryReader = sqlQueryReader;
             _runner = runner;
             _sqlCredentialReader = sqlCredentialReader;
             _resultRepository = resultRepository;
+            _sessionRepository = sessionRepository;
             _tabularizer = tabularizer;
         }
 
@@ -39,12 +42,35 @@ namespace SqlCrawler.Web.Controllers
         {
             _sqlQueryReader.Reload();
             var sqls = _sqlQueryReader.Read();
+            var sessions = _sessionRepository.Get().ToList();
+            sessions.ForEach(s =>
+            {
+                var sql = sqls.SingleOrDefault(q => q.Name == s.QueryName);
+                if (sql != null)
+                {
+                    sql.LastRetrievedAtUtc = s.FinishedAtUtc;
+                }
+            });
+
             return sqls;
         }
 
         [HttpGet]
         [Route("{queryName}")]
-        public string GetByQuery(string queryName)
+        public SqlQueryInfo GetByQuery(string queryName)
+        {
+            var sql = _sqlQueryReader.Read().SingleOrDefault(x => x.Name == queryName);
+            var session = _sessionRepository.GetByQueryName(queryName);
+
+            if (sql != null && session != null)
+                sql.LastRetrievedAtUtc = session.FinishedAtUtc;
+
+            return sql;
+        }
+
+        [HttpGet]
+        [Route("{queryName}/result")]
+        public string GetResult(string queryName)
         {
             var result = _resultRepository.Get(queryName, null);
             return JsonConvert.SerializeObject(_tabularizer.Process(result));

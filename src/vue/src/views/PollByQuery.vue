@@ -6,17 +6,19 @@
         ><pre class="pre-text">{{ queryBody }}</pre>
       </v-card-text>
       <v-card-actions>
-        <v-spacer />
-        <v-btn color="primary" @click="onRun" :loading="running" width="100"
+        <v-btn text color="primary" @click="onRun" :loading="running"
           ><v-icon>mdi-play</v-icon>Run</v-btn
         >
         <v-btn
+          text
           color="error"
           @click="onCancel"
           :style="{ visibility: running ? 'visible' : 'hidden' }"
           width="100"
           ><v-icon>mdi-stop</v-icon>Cancel</v-btn
         >
+        <v-spacer />
+        <div>{{ queryLastRetrievedAt }}</div>
       </v-card-actions>
     </v-card>
     <v-snackbar v-model="hasError" top :timeout="0">
@@ -81,6 +83,7 @@
 import { mapState, mapActions } from "vuex";
 import axios from "axios";
 import ErrorInfo from "./ErrorInfo.vue";
+import { toLocalString } from "./formatter";
 
 export default {
   components: {
@@ -120,6 +123,18 @@ export default {
     queryBody() {
       const query = this.queries.filter(x => x.name === this.queryName);
       return query.length ? query[0].query : "";
+    },
+    queryLastRetrievedAt() {
+      const query = this.queries.filter(q => q.name === this.queryName);
+      if (query.length) {
+        if (query[0].lastRetrievedAtUtc)
+          return (
+            "Last retrieved at: " + toLocalString(query[0].lastRetrievedAtUtc)
+          );
+        else return "";
+      }
+
+      return "";
     }
   },
   methods: {

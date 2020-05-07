@@ -18,12 +18,16 @@
           {{ item.name }}</router-link
         >
       </template>
+      <template v-slot:item.lastRetrievedAtUtc="{ value }">
+        {{ toLocalString(value) }}
+      </template>
     </v-data-table>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
+import { toLocalString } from "./formatter";
 
 export default {
   data: () => ({
@@ -32,13 +36,17 @@ export default {
       sortBy: ["name"],
       sortDesc: [false]
     },
-    headers: [{ text: "Name", value: "name" }]
+    headers: [
+      { text: "Name", value: "name" },
+      { text: "Last Retrieved At", value: "lastRetrievedAtUtc" }
+    ]
   }),
   computed: {
     ...mapState(["queries"])
   },
   methods: {
-    ...mapActions(["getQueries"])
+    ...mapActions(["getQueries"]),
+    toLocalString: toLocalString
   },
   mounted() {
     this.loading = true;

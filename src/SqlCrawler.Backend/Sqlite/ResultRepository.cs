@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Dapper;
 using Microsoft.Data.Sqlite;
+using SqlCrawler.Backend.Core;
 
 namespace SqlCrawler.Backend.Sqlite
 {

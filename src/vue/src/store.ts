@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import { sqlQueryInfo } from "./cs-core/SqlQueryInfo";
 
 Vue.use(Vuex);
 
@@ -8,7 +9,7 @@ export default new Vuex.Store({
   state: () => ({
     liveness: false,
     servers: [],
-    queries: [],
+    queries: [] as sqlQueryInfo[],
     queryProgress: 0,
     results: [],
     settings: []
@@ -22,6 +23,14 @@ export default new Vuex.Store({
     },
     SET_QUERIES(state, queries) {
       state.queries = queries;
+    },
+    SET_QUERY(state, query) {
+      if (!query) return;
+
+      const queryFiltered = state.queries.filter(q => q.name === query.name);
+      if (queryFiltered.length) {
+        state.queries.splice(state.queries.indexOf(queryFiltered[0]), 1, query);
+      }
     },
     SET_QUERY_PROGRESS(state, value) {
       state.queryProgress = value;
@@ -67,6 +76,12 @@ export default new Vuex.Store({
         )
         .then(() => {
           return context.dispatch("getResults", queryName);
+        })
+        .then(() => {
+          return axios.get(`api/sqlQueries/${queryName}`);
+        })
+        .then(r => {
+          context.commit("SET_QUERY", r.data);
         });
     },
     ensureWeGotQueries(context) {
@@ -75,7 +90,7 @@ export default new Vuex.Store({
       return context.dispatch("getQueries");
     },
     getResults(context, queryName) {
-      return axios.get(`api/sqlQueries/${queryName}`).then(r => {
+      return axios.get(`api/sqlQueries/${queryName}/result`).then(r => {
         context.commit("SET_RESULTS", r.data);
       });
     },
