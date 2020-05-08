@@ -48,8 +48,8 @@
     <dynamic-column-table
       :loading="loading"
       :running="running"
-      :loading-progress="queryProgress"
-      :results="results"
+      :running-progress="queryProgress"
+      :items="results"
       :initialHeaders="[
         { text: 'ServerId', value: 'ServerId' },
         { text: 'ServerName', value: 'ServerName' }

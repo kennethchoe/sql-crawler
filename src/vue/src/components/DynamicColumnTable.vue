@@ -3,12 +3,15 @@
     :headers="headers"
     :options.sync="options"
     :loading="loading || running"
-    :items="results"
+    :items="items"
     :items-per-page="-1"
     item-key="ServerId"
     show-expand
     :hide-default-footer="true"
   >
+    <template v-slot:progress>
+      <v-progress-linear :indeterminate="loading" :value="runningProgress" />
+    </template>
     <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
       <v-icon
         @click="expand(true)"
@@ -28,15 +31,8 @@
     </template>
     <template v-slot:item.Rows="{ value }">
       <v-card class="ma-4">
-        <dynamic-column-table
-          v-if="value && value.length"
-          :results="value"
-          :initial-headers="[]"
-        />
+        <dynamic-column-table v-if="value && value.length" :items="value" />
       </v-card>
-    </template>
-    <template v-slot:progress>
-      <v-progress-linear :indeterminate="loading" :value="loadingProgress" />
     </template>
   </v-data-table>
 </template>
@@ -50,15 +46,16 @@ export default {
     ErrorInfo
   },
   props: {
-    results: {
+    items: {
       type: Array,
       required: true
     },
     initialHeaders: {
       type: Array,
-      required: true
+      required: false,
+      default: () => []
     },
-    loadingProgress: {
+    runningProgress: {
       type: Number,
       required: false,
       default: 0
@@ -82,9 +79,9 @@ export default {
   computed: {
     headers() {
       const result = this.initialHeaders;
-      if (this.results.length > 0) {
-        for (let i = 0; i < this.results.length; i++) {
-          Object.keys(this.results[i]).forEach(c => {
+      if (this.items.length > 0) {
+        for (let i = 0; i < this.items.length; i++) {
+          Object.keys(this.items[i]).forEach(c => {
             if (c === "Error") return;
             if (result.findIndex(x => x.text === c) >= 0) return;
             result.push({ text: c, value: c });
