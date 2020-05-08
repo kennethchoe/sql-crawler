@@ -4,6 +4,10 @@ module.exports = {
   transpileDependencies: [
     'vuetify',
   ],
+  // https://github.com/vuetifyjs/vuetify/issues/5271#issuecomment-600031869
+  css: {
+    extract: { ignoreOrder: true },
+  },
   devServer: {
     proxy: {
       '/': {
