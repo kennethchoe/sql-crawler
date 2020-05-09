@@ -38,6 +38,7 @@ export default {
     },
     headers: [
       { text: "Name", value: "name" },
+      { text: "Scope", value: "scope" },
       { text: "Last Retrieved At", value: "lastRetrievedAtUtc" }
     ]
   }),

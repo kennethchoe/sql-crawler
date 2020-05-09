@@ -2,8 +2,9 @@
   <div>
     <v-card>
       <v-card-title>{{ queryName }}</v-card-title>
+      <v-card-subtitle> {{ query.scope }}</v-card-subtitle>
       <v-card-text
-        ><pre class="pre-text">{{ queryBody }}</pre>
+        ><pre class="pre-text">{{ query.query }}</pre>
       </v-card-text>
       <v-card-actions>
         <v-btn text color="primary" @click="onRun" :loading="running"
@@ -87,9 +88,9 @@ export default {
   }),
   computed: {
     ...mapState(["results", "queries", "queryProgress"]),
-    queryBody() {
+    query() {
       const query = this.queries.filter(x => x.name === this.queryName);
-      return query.length ? query[0].query : "";
+      return query.length ? query[0] : {};
     },
     queryLastRetrievedAt() {
       const query = this.queries.filter(q => q.name === this.queryName);
@@ -159,8 +160,7 @@ export default {
 
 <style scoped>
 .pre-text {
-  white-space: pre;
-  text-align: left;
-  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 </style>

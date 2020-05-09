@@ -20,7 +20,7 @@ namespace SqlCrawler.Tests
 
             var reader = scope.Resolve<SqlCredentialReader>();
             var infos = reader.Read().ToList();
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(infos, Formatting.Indented));
+            Console.WriteLine(JsonConvert.SerializeObject(infos, Formatting.Indented));
 
             foreach (var info in infos)
             {
@@ -39,7 +39,11 @@ namespace SqlCrawler.Tests
             Assert.Throws(
                 Is.TypeOf<SqlCredentialsException>()
                     .And.Message.Contains("svr1, svr2"),
-                delegate { reader.Read().ToList(); });
+                delegate
+                {
+                    // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                    reader.Read().ToList();
+                });
         }
 
         private ILifetimeScope BuildCustomScope(AppConfig appConfig)

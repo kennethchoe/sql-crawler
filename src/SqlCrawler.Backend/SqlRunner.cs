@@ -34,19 +34,22 @@ namespace SqlCrawler.Backend
             _resultRepository = resultRepository;
         }
 
-        public async Task Run(string queryName, CancellationToken cancellationToken, Action callback)
+        public async Task Run(string queryName, CancellationToken cancellationToken, Action<int> init, Action progress)
         {
             var sqls = _queryReader.Read();
-            var template = Handlebars.Compile(sqls.Single(x => x.Name == queryName).Query);
+            var sql = sqls.Single(x => x.Name == queryName);
+            var template = Handlebars.Compile(sql.Query);
 
             var servers = _credentialReader.Read();
+            var serversFiltered = servers.Where(x => x.Scope.StartsWith(sql.Scope)).ToList();
+            init(serversFiltered.Count);
 
             var sessionRecord = _sessionRepository.Insert(new SessionRecord
             {
                 QueryName = queryName
             });
 
-            foreach (var server in servers)
+            foreach (var server in serversFiltered)
             {
                 var serverPublic = new SqlServerInfoPublic();
                 serverPublic.InjectFrom(server);
@@ -77,7 +80,7 @@ namespace SqlCrawler.Backend
                     DataJson = dataJson
                 });
 
-                callback();
+                progress();
             }
 
             _sessionRepository.Finish(sessionRecord);

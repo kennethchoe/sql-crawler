@@ -34,6 +34,7 @@ export default {
     },
     headers: [
       { text: "ServerId", value: "serverId" },
+      { text: "Scope", value: "scope" },
       { text: "ServerName", value: "serverName" },
       { text: "Description", value: "description" },
       { text: "UserData1", value: "userData1" },

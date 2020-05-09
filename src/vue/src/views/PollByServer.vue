@@ -1,7 +1,8 @@
 <template>
   <div>
     <v-card>
-      <v-card-title>{{ serverId }} - {{ server.serverName }}</v-card-title>
+      <v-card-title>{{ serverId }} - {{ server.serverName }} </v-card-title>
+      <v-card-subtitle> {{ server.scope }}</v-card-subtitle>
       <v-card-text>
         {{ server.description }}
       </v-card-text>

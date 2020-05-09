@@ -17,21 +17,18 @@ namespace SqlCrawler.Web.Controllers
     {
         private readonly SqlQueryReader _sqlQueryReader;
         private readonly SqlRunner _runner;
-        private readonly SqlCredentialReader _sqlCredentialReader;
         private readonly ResultRepository _resultRepository;
         private readonly SessionRepository _sessionRepository;
         private readonly Tabularizer _tabularizer;
 
         public SqlQueriesController(SqlQueryReader sqlQueryReader,
             SqlRunner runner,
-            SqlCredentialReader sqlCredentialReader,
             ResultRepository resultRepository,
             SessionRepository sessionRepository,
             Tabularizer tabularizer)
         {
             _sqlQueryReader = sqlQueryReader;
             _runner = runner;
-            _sqlCredentialReader = sqlCredentialReader;
             _resultRepository = resultRepository;
             _sessionRepository = sessionRepository;
             _tabularizer = tabularizer;
@@ -82,17 +79,22 @@ namespace SqlCrawler.Web.Controllers
         {
             Response.StatusCode = 200;
             Response.ContentType = "text/event-stream";
-            var serverCount = _sqlCredentialReader.Read().Count();
-            Response.ContentLength = serverCount;
 
             var sw = new StreamWriter(Response.Body);
 
             _sqlQueryReader.Reload();
-            await _runner.Run(queryName, token, async () =>
-            {
-                await sw.WriteAsync("1");
-                await sw.FlushAsync();
-            });
+            await _runner.Run(queryName, token, 
+                cnt =>
+                {
+                    Response.ContentLength = cnt;
+                },
+                async () =>
+                {
+                    await sw.WriteAsync("1");
+                    await sw.FlushAsync();
+                }
+            );
+
             return null;
         }
     }

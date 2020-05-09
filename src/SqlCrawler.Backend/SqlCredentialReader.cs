@@ -21,15 +21,27 @@ namespace SqlCrawler.Backend
         {
             using var reader = new StreamReader(Path.Combine(_appConfig.SqlCredentialsFilePath));
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+            csv.Configuration.RegisterClassMap(new SqlServerInfoMap());
 
             var records = csv.GetRecords<SqlServerInfo>().ToList();
 
-            var dups = records.GroupBy(x => x.ServerId).Where(x => x.Count() > 1);
-            if (dups.Any())
+            var duplicates = records.GroupBy(x => x.ServerId).Where(x => x.Count() > 1).ToList();
+            if (duplicates.Any())
                 throw new SqlCredentialsException("ServerId must be unique. Duplicated Id(s): " + 
-                                    dups.Select(x => x.Key).Aggregate((x, y) => x + ", " + y));
+                                    duplicates.Select(x => x.Key).Aggregate((x, y) => x + ", " + y));
             
             return records;
+        }
+
+        private sealed class SqlServerInfoMap : ClassMap<SqlServerInfo>
+        {
+            public SqlServerInfoMap()
+            {
+                AutoMap(CultureInfo.InvariantCulture);
+                Map(m => m.UserData1).Optional();
+                Map(m => m.UserData2).Optional();
+                Map(m => m.Scope).Optional().Default("");
+            }
         }
     }
 }

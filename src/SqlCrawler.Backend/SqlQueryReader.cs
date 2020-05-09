@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using LibGit2Sharp;
 using SqlCrawler.Backend.Core;
 
@@ -8,7 +9,7 @@ namespace SqlCrawler.Backend
     public class SqlQueryReader
     {
         private readonly IAppConfig _appConfig;
-        private string _clonePath;
+        private readonly string _clonePath;
 
         public SqlQueryReader(IAppConfig appConfig)
         {
@@ -69,18 +70,38 @@ namespace SqlCrawler.Backend
 
             var result = new List<SqlQueryInfo>();
 
-            foreach (var file in Directory.GetFiles(_clonePath))
+            foreach (var file in Directory.GetFiles(_clonePath, "*.sql", SearchOption.AllDirectories))
             {
-                if (file.ToLower().EndsWith(".sql"))
-                {
-                    result.Add(new SqlQueryInfo {
-                        Name = file.Substring(_clonePath.Length + 1, file.Length - _clonePath.Length - 5), 
-                        Query = File.ReadAllText(file)
-                            });
-                }
+                var relativePath = file.Substring(_clonePath.Length + 1);
+                var info = Parse(relativePath);
+                result.Add(new SqlQueryInfo {
+                    Scope = info.Scope,
+                    Name = info.Name, 
+                    Query = File.ReadAllText(file)
+                        });
             }
+
+            var duplicates = result.GroupBy(x => x.Name).Where(x => x.Count() > 1).ToList();
+            if (duplicates.Any())
+                throw new SqlQueryException("SqlQuery filename must be unique. Duplicated name(s): " +
+                                                  duplicates.Select(x => x.Key).Aggregate((x, y) => x + ", " + y));
 
             return result;
         }
+
+        public QueryFileInfo Parse(string relativePath)
+        {
+            return new QueryFileInfo
+            {
+                Scope = Path.GetDirectoryName(relativePath).Replace("\\", "/"),
+                Name = Path.GetFileNameWithoutExtension(relativePath)
+            };
+        }
+    }
+
+    public class QueryFileInfo
+    {
+        public string Scope { get; set; }
+        public string Name { get; set; }
     }
 }

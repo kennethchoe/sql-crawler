@@ -21,7 +21,7 @@ namespace SqlCrawler.Tests
             var runner = scope.Resolve<SqlRunner>();
 
             var queryName = "Server DateTime";
-            await runner.Run(queryName, new CancellationToken(), () => { });
+            await runner.Run(queryName, new CancellationToken(), _ => { }, () => { });
             var result = repo.Get(queryName, null);
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result, Formatting.Indented));
         }
