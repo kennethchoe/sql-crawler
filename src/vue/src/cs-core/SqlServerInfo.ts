@@ -1,4 +1,4 @@
-﻿import { sqlServerInfoPublic } from './sqlServerInfoPublic';
+﻿import { sqlServerInfoPublic } from './SqlServerInfoPublic';
 
 export class sqlServerInfo extends sqlServerInfoPublic {
     public dataSource: string | null = null;
