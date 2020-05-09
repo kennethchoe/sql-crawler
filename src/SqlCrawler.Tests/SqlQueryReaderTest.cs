@@ -17,7 +17,7 @@ namespace SqlCrawler.Tests
             var sqls = reader.Read();
             Console.WriteLine(JsonConvert.SerializeObject(sqls, Formatting.Indented));
 
-            Assert.That(sqls.Any(x => x.Name == "Server DateTime"), Is.True);
+            Assert.That(sqls.Any(x => x.Name == "1. Parameterized Sqls"), Is.True);
         }
 
         [TestCase("group1\\name1.sql", "group1", "name1")]

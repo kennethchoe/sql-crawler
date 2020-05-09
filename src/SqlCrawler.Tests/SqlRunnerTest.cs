@@ -19,7 +19,7 @@ namespace SqlCrawler.Tests
             var repo = scope.Resolve<ResultRepository>();
             var runner = scope.Resolve<SqlRunner>();
 
-            var queryName = "Server DateTime";
+            var queryName = "1. Parameterized Sqls";
             await runner.Run(queryName, new CancellationToken(), _ => { }, () => { });
             var result = repo.Get(queryName, null);
             Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
