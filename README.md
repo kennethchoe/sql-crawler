@@ -26,13 +26,17 @@ Comma-delimited file. [Sample](src/SqlCrawler.Web/data/sql-credentials.csv)
 Files ending with .sql are recognized as queries.
 If approval process is needed, you may configure your git repo with permission.
 
+[Sample](https://github.com/kennethchoe/sql-crawler-sqls)
+
 ### Scope
 
 SQL queries may be inside subfolders in the git repository. Then the path of query file becomes the `scope` of the query.
+
 Server List may have optional column `Scope`.
+
 When you run query, it runs against servers with matching scope or below.
 
-For more details, check out the demo site.
+For more details, check out the [demo site](https://agilesalt.net/sql-crawler).
 
 ## Commands
 
