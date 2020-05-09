@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using LibGit2Sharp;
@@ -14,7 +15,7 @@ namespace SqlCrawler.Backend
         public SqlQueryReader(IAppConfig appConfig)
         {
             _appConfig = appConfig;
-            _clonePath = Path.Combine(_appConfig.SqlSourceGitClonePath);
+            _clonePath = Path.Combine(_appConfig.SqlSourceGitClonePath ?? new[] { "sql-source" });
         }
 
         // https://stackoverflow.com/questions/1701457/directory-delete-doesnt-work-access-denied-error-but-under-windows-explorer-it
@@ -83,7 +84,7 @@ namespace SqlCrawler.Backend
 
             var duplicates = result.GroupBy(x => x.Name).Where(x => x.Count() > 1).ToList();
             if (duplicates.Any())
-                throw new SqlQueryException("SqlQuery filename must be unique. Duplicated name(s): " +
+                throw new Exception("SqlQuery filename must be unique. Duplicated name(s): " +
                                                   duplicates.Select(x => x.Key).Aggregate((x, y) => x + ", " + y));
 
             return result;

@@ -21,7 +21,6 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import DynamicColumnTable from "../components/DynamicColumnTable.vue";
-import { toLocalString } from "./formatter";
 
 export default {
   components: {
