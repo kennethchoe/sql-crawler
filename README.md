@@ -13,22 +13,26 @@ Connect to multiple SQL database servers and run queries to collect data.
 
 [https://agilesalt.net/sql-crawler](https://agilesalt.net/sql-crawler)
 
-## How It Works
+## Configuration
 
-### Development
+Configure your own sql server list and sql queries git repository.
 
-1. Dev creates docker image that accepts 2 parameters:
-   1. Location of tab-delimited file that contains sql server credentials.
-   2. Location of git repository for polling sql statements.
-2. Dev tests image with dev sql servers list and dev sql statement repo.
+### Sql Server List
 
-### Deployment
+Comma-delimited file. [Sample](src/SqlCrawler.Web/data/sql-credentials.csv)
 
-DevOps launches the image with production sql server credentials list file and production sql statements git repo.
+### Sql Queries Git Repo Url
 
-### Registering Poll Sql Statements with Approval Process
+Files ending with .sql are recognized as queries.
+If approval process is needed, you may configure your git repo with permission.
 
-Configure your git repo with permission, pull request enforced.
+### Scope
+
+SQL queries may be inside subfolders in the git repository. Then the path of query file becomes the `scope` of the query.
+Server List may have optional column `Scope`.
+When you run query, it runs against servers with matching scope or below.
+
+For more details, check out the demo site.
 
 ## Commands
 
