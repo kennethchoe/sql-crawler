@@ -29,11 +29,12 @@ export default {
   data: () => ({
     loading: false,
     options: {
-      sortBy: ["serverName"],
+      sortBy: ["serverId"],
       sortDesc: [false]
     },
     headers: [
       { text: "ServerId", value: "serverId" },
+      { text: "ServerDriver", value: "serverDriver" },
       { text: "Scope", value: "scope" },
       { text: "ServerName", value: "serverName" },
       { text: "Description", value: "description" },

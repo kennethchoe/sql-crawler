@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace SqlCrawler.Backend
 
             var duplicates = records.GroupBy(x => x.ServerId).Where(x => x.Count() > 1).ToList();
             if (duplicates.Any())
-                throw new SqlCredentialsException("ServerId must be unique. Duplicated Id(s): " + 
+                throw new Exception("ServerId must be unique. Duplicated Id(s): " + 
                                     duplicates.Select(x => x.Key).Aggregate((x, y) => x + ", " + y));
             
             return records;
@@ -37,10 +38,17 @@ namespace SqlCrawler.Backend
         {
             public SqlServerInfoMap()
             {
-                AutoMap(CultureInfo.InvariantCulture);
+                Map(m => m.ServerId);
+                Map(m => m.ServerName).Optional();
+                Map(m => m.Scope).Optional().Default("");
+                Map(m => m.Description).Optional();
                 Map(m => m.UserData1).Optional();
                 Map(m => m.UserData2).Optional();
-                Map(m => m.Scope).Optional().Default("");
+                Map(m => m.ServerDriver).Optional().Default("mssql");
+                Map(m => m.DataSource);
+                Map(m => m.UseIntegratedSecurity).Optional().Default("true");
+                Map(m => m.SqlUsername).Optional();
+                Map(m => m.SqlPassword).Optional();
             }
         }
     }

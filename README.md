@@ -19,7 +19,15 @@ Configure your own sql server list and sql queries git repository. Then specify 
 
 ### Sql Server List
 
-Comma-delimited file. ServerId must be unique.
+Comma-delimited file. `*`: required
+
+1. ServerId`*`: unique identifier of the server.
+2. ServerName: user-friendly name of the server.
+3. Scope: see [Scope](Scope).
+4. Description
+5. UserData1, UserData2: custom info that you can use in your sql as parameter (`@UserData1`) or Handlebars replacement (`{{UserData1}}`). For other properties that you can use in your sql, see [SqlServerInfoPublic](src/SqlCrawler.Backend/Core/SqlServerInfoPublic.cs).
+6. ServerDriver: `mssql` (default) or `sqlite`. To support more, add class on [Drivers](src/SqlCrawler.Backend/Drivers)
+7. DataSource`*`, UseIntegratedSecurity, SqlUsername, SqlPassword: connection info consumed by ServerDrivers. See [implementation of each driver](src/SqlCrawler.Backend/Drivers) to find more details.
 
 [View Sample](src/SqlCrawler.Web/data/sql-credentials.csv)
 
@@ -36,7 +44,7 @@ SQL queries may be inside subfolders in the git repository. Then the path of que
 
 Server List may have optional column `Scope`. ServerId must be still unique across entire list.
 
-When you run query, it runs against servers with matching scope or below.
+When you run query, it runs against servers with matching scope or below. For example, `a/b/test.sql`'s scope is `a/b`. It will run on the server with its `Scope` values `a/b` or `a/b/c`, but not on `a` nor a server with empty  `Scope` value.
 
 For more details, check out the [demo site](https://agilesalt.net/sql-crawler).
 

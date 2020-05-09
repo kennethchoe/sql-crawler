@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Reflection;
 using Autofac;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using SqlCrawler.Backend.Core;
+using SqlCrawler.Backend.Drivers;
 
 namespace SqlCrawler.Web.IoC
 {
@@ -34,8 +34,9 @@ namespace SqlCrawler.Web.IoC
 
             builder.RegisterAssemblyTypes(assemblies);
 
-            var enumerableInjectionTypes = new Type[]
+            var enumerableInjectionTypes = new []
             {
+                typeof(IServerDriver)
             }.ToList();
 
             enumerableInjectionTypes.ForEach(x =>
