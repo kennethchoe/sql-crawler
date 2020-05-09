@@ -95,7 +95,7 @@ namespace SqlCrawler.Web.Controllers
                 }
             );
 
-            return null;
+            return Ok();
         }
     }
 }
