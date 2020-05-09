@@ -2,13 +2,14 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import { sqlQueryInfo } from "./cs-core/SqlQueryInfo";
+import { sqlServerInfoPublic } from "./cs-core/sqlServerInfoPublic";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: () => ({
     liveness: false,
-    servers: [],
+    servers: [] as sqlServerInfoPublic[],
     queries: [] as sqlQueryInfo[],
     queryProgress: 0,
     results: [],
@@ -97,6 +98,11 @@ export default new Vuex.Store({
       if (context.state.queries.length) return;
 
       return context.dispatch("getQueries");
+    },
+    ensureWeGotServers(context) {
+      if (context.state.servers.length) return;
+
+      return context.dispatch("getServers");
     },
     getResults(context, queryName) {
       return axios.get(`api/sqlQueries/${queryName}/result`).then(r => {

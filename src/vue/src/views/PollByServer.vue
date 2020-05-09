@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-card>
-      <v-card-title>{{ serverId }} - </v-card-title>
+      <v-card-title>{{ serverId }} - {{ server.serverName }}</v-card-title>
       <v-card-text>
-        <!-- <pre class="pre-text">{{ description }}</pre> -->
+        {{ server.description }}
       </v-card-text>
     </v-card>
     <br />
@@ -36,15 +36,23 @@ export default {
     loading: false
   }),
   computed: {
-    ...mapState(["resultsByServer"])
+    ...mapState(["resultsByServer", "servers"]),
+    server() {
+      const server = this.servers.filter(x => x.serverId === this.serverId);
+      return server.length ? server[0] : {};
+    }
   },
   methods: {
-    ...mapActions(["getResultsByServer"]),
+    ...mapActions(["getResultsByServer", "ensureWeGotServers"]),
     init() {
       this.loading = true;
-      this.getResultsByServer(this.serverId).finally(() => {
-        this.loading = false;
-      });
+      this.ensureWeGotServers()
+        .then(() => {
+          return this.getResultsByServer(this.serverId);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     }
   },
   mounted() {

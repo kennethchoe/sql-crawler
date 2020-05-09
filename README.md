@@ -54,7 +54,3 @@ Because I forget them after a while...
 * `docker inspect container-identifier` : show full info about running container, including port, volume mapping, etc.
 * `docker exec -it container-identifier bash` : launch interactive bash on running container. `exit` to disconnect
 * `docker exec container-identifier ls /app` : tap into running container and display the result of `ls /app`
-
-## Backlog
-
-* user can view result by sql server

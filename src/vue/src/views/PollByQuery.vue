@@ -156,3 +156,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.pre-text {
+  white-space: pre;
+  text-align: left;
+  overflow: auto;
+}
+</style>
