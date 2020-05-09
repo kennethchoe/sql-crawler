@@ -64,6 +64,8 @@ ServerId must be still unique across different scopes. Same rule is applied to s
     *  `-gitUsername username -gitPassword password`  : specify git repo's credential, if needed.
     *  `-skipRebuild` skips rebuilding docker image.
 
+Latest Linux container docker image is available at [https://hub.docker.com/repository/docker/gould0711/sql-crawler](https://hub.docker.com/repository/docker/gould0711/sql-crawler).
+
 ## Useful Docker Commands
 
 Because I forget them after a while...
