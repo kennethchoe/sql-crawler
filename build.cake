@@ -61,7 +61,8 @@ Task("Build-Docker")
     .IsDependentOn("Build-Vue")
     .Does(() =>
 {
-    var exitCode = StartProcess("docker", "build .\\src -t " + name);
+    var srcDirectory = Directory(".\\src");
+    var exitCode = StartProcess("docker", "build " + srcDirectory + " -t " + name);
     if (exitCode != 0)
         throw new Exception("Failed.");
 });
