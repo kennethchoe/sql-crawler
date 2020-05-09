@@ -1,8 +1,6 @@
 ﻿using Autofac;
 using NUnit.Framework;
-using SqlCrawler.Backend;
 using SqlCrawler.Backend.Core;
-using SqlCrawler.Web;
 
 namespace SqlCrawler.Tests
 {
@@ -13,7 +11,7 @@ namespace SqlCrawler.Tests
         public void GetAppConfig()
         {
             var config = TestBootstrapper.Scope.Resolve<IAppConfig>();
-            Assert.That(string.IsNullOrEmpty("test.csv"), Is.False);
+            Assert.AreEqual(1, config.CommandTimeoutInSeconds);
         }
     }
 }

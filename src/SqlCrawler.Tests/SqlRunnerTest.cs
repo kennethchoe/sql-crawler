@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -23,7 +22,7 @@ namespace SqlCrawler.Tests
             var queryName = "Server DateTime";
             await runner.Run(queryName, new CancellationToken(), _ => { }, () => { });
             var result = repo.Get(queryName, null);
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result, Formatting.Indented));
+            Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
         }
     }
 }

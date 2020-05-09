@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SqlCrawler.Backend
+﻿namespace SqlCrawler.Backend
 {
     public class Dll
     {

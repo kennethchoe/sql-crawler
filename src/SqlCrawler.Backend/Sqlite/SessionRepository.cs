@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Dapper;
 using Microsoft.Data.Sqlite;
-using Newtonsoft.Json;
 
 namespace SqlCrawler.Backend.Sqlite
 {

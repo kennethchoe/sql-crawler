@@ -5,7 +5,6 @@ using System.Reflection;
 using Autofac;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
-using SqlCrawler.Backend;
 using SqlCrawler.Backend.Core;
 
 namespace SqlCrawler.Web.IoC
