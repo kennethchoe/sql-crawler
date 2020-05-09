@@ -4,6 +4,12 @@
     Template(Settings settings)
     {
         settings.IncludeProject("SqlCrawler.Backend");
+
+        settings.OutputFilenameFactory = file => 
+        {
+            var name = file.Name.Replace(".cs", ".ts");
+            return Char.ToLowerInvariant(name[0]) + name.Substring(1);
+        };
     }
 
     string Imports(Class c)
