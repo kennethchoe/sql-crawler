@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SqlCrawler.Backend.Sqlite;
 
@@ -18,22 +17,22 @@ namespace SqlCrawler.Backend
 
         public IEnumerable<dynamic> Process(IEnumerable<ResultRecord> records)
         {
-            var servers = _reader.Read();
+            var servers = _reader.Read().ToList();
 
             foreach (var record in records)
             {
                 dynamic result = new ExpandoObject();
                 var kv = (IDictionary<string, object>)result;
-                IEnumerable<dynamic> deserialized = JsonConvert.DeserializeObject<IEnumerable<dynamic>>(record.DataJson).ToList();
+                var deserialized = record.Data.ToList();
 
-                if (deserialized.Count() == 1)
+                if (deserialized.Count == 1)
                 {
-                    Newtonsoft.Json.Linq.JContainer props = deserialized.Single();
+                    JContainer props = deserialized.Single();
                     foreach (var jToken in props)
                     {
                         var prop = (JProperty) jToken;
                         kv.Add(prop.Path, prop.Value);
-                    };
+                    }
                 }
                 else if (deserialized.Any())
                 {

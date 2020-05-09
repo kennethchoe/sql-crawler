@@ -5,7 +5,7 @@
     :loading="loading || running"
     :items="items"
     :items-per-page="-1"
-    item-key="ServerId"
+    :item-key="itemKey"
     show-expand
     :hide-default-footer="true"
   >
@@ -55,6 +55,11 @@ export default {
       required: false,
       default: () => []
     },
+    propsToHide: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
     runningProgress: {
       type: Number,
       required: false,
@@ -69,11 +74,14 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    itemKey: {
+      type: String,
+      required: false,
+      default: "not-loaded-yet"
     }
   },
   data: () => ({
-    loading: false,
-    running: false,
     options: {}
   }),
   computed: {
@@ -83,6 +91,7 @@ export default {
         for (let i = 0; i < this.items.length; i++) {
           Object.keys(this.items[i]).forEach(c => {
             if (c === "Error") return;
+            if (this.propsToHide.findIndex(x => x === c) >= 0) return;
             if (result.findIndex(x => x.text === c) >= 0) return;
             result.push({ text: c, value: c });
           });

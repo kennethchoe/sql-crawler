@@ -12,6 +12,7 @@ export default new Vuex.Store({
     queries: [] as sqlQueryInfo[],
     queryProgress: 0,
     results: [],
+    resultsByServer: [],
     settings: []
   }),
   mutations: {
@@ -38,6 +39,9 @@ export default new Vuex.Store({
     SET_RESULTS(state, results) {
       state.results = results;
     },
+    SET_RESULTS_BY_SERVER(state, results) {
+      state.resultsByServer = results;
+    },
     SET_SETTINGS(state, settings) {
       state.settings = settings;
     }
@@ -51,6 +55,11 @@ export default new Vuex.Store({
     getServers(context) {
       return axios.get("api/servers").then(r => {
         context.commit("SET_SERVERS", r.data);
+      });
+    },
+    getResultsByServer(context, serverId) {
+      return axios.get(`api/servers/${serverId}/result`).then(r => {
+        context.commit("SET_RESULTS_BY_SERVER", r.data);
       });
     },
     getQueries(context) {

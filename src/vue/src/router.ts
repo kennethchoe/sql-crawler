@@ -28,14 +28,15 @@ const routes: Array<RouteConfig> = [
     props: true,
     component: () =>
       import(/* webpackChunkName: "poll-by-query" */ "./views/PollByQuery.vue")
-    // },
-    // {
-    //   path: "/poll-by-server/:serverId",
-    //   name: "poll-by-server",
-    //   component: () =>
-    //     import(
-    //       /* webpackChunkName: "poll-by-server" */ "./views/PollByServer.vue"
-    //     )
+  },
+  {
+    path: "/poll-by-server/:serverId",
+    name: "poll-by-server",
+    props: true,
+    component: () =>
+      import(
+        /* webpackChunkName: "poll-by-server" */ "./views/PollByServer.vue"
+      )
   }
 ];
 

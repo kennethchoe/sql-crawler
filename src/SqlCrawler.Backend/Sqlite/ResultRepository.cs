@@ -27,7 +27,7 @@ namespace SqlCrawler.Backend.Sqlite
         public IEnumerable<ResultRecord> Get(string queryName, string serverId)
         {
             var result = _conn.Query<ResultRecord>(@"
-select a.* 
+select a.*, b.QueryName
   from Results a 
        inner join Sessions b on a.SessionRowId = b.RowId and b.IsActive = 1
  where b.QueryName = coalesce(@queryName, b.QueryName)

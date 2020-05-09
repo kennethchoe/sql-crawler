@@ -8,16 +8,16 @@
       :items-per-page="-1"
       :hide-default-footer="true"
     >
-      <!-- <template v-slot:item.serverId="{ item }">
+      <template v-slot:item.serverId="{ item }">
         <router-link
           :to="{
             name: 'poll-by-server',
-            params: { serverId: item.serverId, serverName: item.serverName }
+            params: { serverId: item.serverId }
           }"
         >
           {{ item.serverId }}</router-link
         >
-      </template> -->
+      </template>
     </v-data-table>
   </div>
 </template>

@@ -50,10 +50,12 @@
       :running="running"
       :running-progress="queryProgress"
       :items="results"
+      item-key="ServerId"
       :initialHeaders="[
         { text: 'ServerId', value: 'ServerId' },
         { text: 'ServerName', value: 'ServerName' }
       ]"
+      :props-to-hide="['QueryName']"
     />
   </div>
 </template>
@@ -154,11 +156,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.pre-text {
-  white-space: pre;
-  text-align: left;
-  overflow: auto;
-}
-</style>
