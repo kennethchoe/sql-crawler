@@ -19,7 +19,7 @@ Configure your own sql server list and sql queries git repository. Then specify 
 
 ### Sql Server List
 
-Comma-delimited file.
+Comma-delimited file. ServerId must be unique.
 
 [View Sample](src/SqlCrawler.Web/data/sql-credentials.csv)
 
@@ -34,11 +34,13 @@ If approval process is needed, you may configure your git repo with permission.
 
 SQL queries may be inside subfolders in the git repository. Then the path of query file becomes the `scope` of the query.
 
-Server List may have optional column `Scope`.
+Server List may have optional column `Scope`. ServerId must be still unique across entire list.
 
 When you run query, it runs against servers with matching scope or below.
 
 For more details, check out the [demo site](https://agilesalt.net/sql-crawler).
+
+ServerId must be still unique across different scopes. Same rule is applied to sql query file name, so if you have the same file name in different paths, sql-crawler will raise an error.
 
 ## Commands
 
