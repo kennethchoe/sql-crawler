@@ -15,18 +15,20 @@ Connect to multiple SQL database servers and run queries to collect data.
 
 ## Configuration
 
-Configure your own sql server list and sql queries git repository.
+Configure your own sql server list and sql queries git repository. Then specify them on [appsettings.json](src/SqlCrawler.Web/appsettings.json), which are [overridable with environment variables](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-3.1#environment-variables).
 
 ### Sql Server List
 
-Comma-delimited file. [Sample](src/SqlCrawler.Web/data/sql-credentials.csv)
+Comma-delimited file.
+
+[View Sample](src/SqlCrawler.Web/data/sql-credentials.csv)
 
 ### Sql Queries Git Repo Url
 
 Files ending with .sql are recognized as queries.
 If approval process is needed, you may configure your git repo with permission.
 
-[Sample](https://github.com/kennethchoe/sql-crawler-sqls)
+[View Sample](https://github.com/kennethchoe/sql-crawler-sqls)
 
 ### Scope
 
