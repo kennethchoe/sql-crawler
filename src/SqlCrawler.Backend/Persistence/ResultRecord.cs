@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace SqlCrawler.Backend.Sqlite
+namespace SqlCrawler.Backend.Persistence
 {
     public class ResultRecord
     {

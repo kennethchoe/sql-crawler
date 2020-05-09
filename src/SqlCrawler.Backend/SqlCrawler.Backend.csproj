@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Sqlite\Upgrade\0001 Create Sessions.txt" />
-    <None Remove="Sqlite\Upgrade\0002 Create Results.txt" />
+    <None Remove="Persistence\Upgrade\0001 Create Sessions.txt" />
+    <None Remove="Persistence\Upgrade\0002 Create Results.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Sqlite\Upgrade\0002 Create Results.txt" />
-    <EmbeddedResource Include="Sqlite\Upgrade\0001 Create Sessions.txt" />
+    <EmbeddedResource Include="Persistence\Upgrade\0002 Create Results.txt" />
+    <EmbeddedResource Include="Persistence\Upgrade\0001 Create Sessions.txt" />
   </ItemGroup>
 
   <ItemGroup>

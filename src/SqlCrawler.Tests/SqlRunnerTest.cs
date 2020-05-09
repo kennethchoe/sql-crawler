@@ -5,7 +5,7 @@ using Autofac;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using SqlCrawler.Backend;
-using SqlCrawler.Backend.Sqlite;
+using SqlCrawler.Backend.Persistence;
 
 namespace SqlCrawler.Tests
 {

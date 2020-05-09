@@ -6,7 +6,7 @@ using DbUp.Helpers;
 using Serilog;
 using SqlCrawler.Backend.Core;
 
-namespace SqlCrawler.Backend.Sqlite
+namespace SqlCrawler.Backend.Persistence
 {
     public class DbUpService
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SqlCrawler.Backend.Sqlite
+namespace SqlCrawler.Backend.Persistence
 {
     public class SessionRecord
     {

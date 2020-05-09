@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using SqlCrawler.Backend;
-using SqlCrawler.Backend.Sqlite;
+using SqlCrawler.Backend.Persistence;
 using SqlCrawler.Web.IoC;
 
 namespace SqlCrawler.Tests

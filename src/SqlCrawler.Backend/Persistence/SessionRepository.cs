@@ -4,7 +4,7 @@ using System.Linq;
 using Dapper;
 using Microsoft.Data.Sqlite;
 
-namespace SqlCrawler.Backend.Sqlite
+namespace SqlCrawler.Backend.Persistence
 {
     public class SessionRepository
     {

@@ -2,7 +2,7 @@
 using System.Dynamic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
-using SqlCrawler.Backend.Sqlite;
+using SqlCrawler.Backend.Persistence;
 
 namespace SqlCrawler.Backend
 {
