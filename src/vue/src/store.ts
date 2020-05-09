@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
-import { sqlQueryInfo } from "./cs-core/SqlQueryInfo";
-import { sqlServerInfoPublic } from "./cs-core/SqlServerInfoPublic";
+import { sqlQueryInfo } from "./cs-core/sqlQueryInfo";
+import { sqlServerInfoPublic } from "./cs-core/sqlServerInfoPublic";
 
 Vue.use(Vuex);
 
