@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
 
     - name: Set login for Docker Hub
       uses: azure/docker-login@v1
