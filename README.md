@@ -57,14 +57,17 @@ ServerId must be still unique across different scopes. Same rule is applied to s
 * `run-webapp.ps1` : launch webapp with vue code transpiled in it, on http:5002 and https:5003.
 * `build.ps1 -target publish` : create web package that can be used to run under IIS
 * `build.ps1 -target build-docker` : create web package on a linux docker image called `sql-crawler`
-* `docker-run.ps1` : create linux docker image and run it as http:5004.
+
+### Playing with Docker Image
+
+* Running on linux container: `docker run -p 5004:80 kennethchoe/sql-crawler`
+    * If you want to have your own sql-credentials attached, attach the folder to `app/data`. Refer to [docker-test-data.ps1](docker-test-data.ps1) for an example.
+
+* `docker-run.ps1` : build, create linux docker image and run it as http:5004.
     *  `-port 1234` : run it on http:1234.
-    *  `-dataPath real-secret-path` : instead of `docker-test-data` path, use real-secret-path where you keep actual credentials of SQL servers.
     *  `-gitSqlSource https://git-repo-url` : specify sql source. Default value is `https://github.com/kennethchoe/sql-crawler-sqls.git`, which is sample repo that shows what is possible.
     *  `-gitUsername username -gitPassword password`  : specify git repo's credential, if needed.
     *  `-skipRebuild` skips rebuilding docker image.
-
-Latest Linux container docker image is available at [https://hub.docker.com/repository/docker/gould0711/sql-crawler](https://hub.docker.com/repository/docker/gould0711/sql-crawler).
 
 ## Useful Docker Commands
 
