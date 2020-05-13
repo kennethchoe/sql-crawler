@@ -62,7 +62,7 @@
       :running="running"
       :running-progress="queryProgress"
       :items="resultsComputed"
-      item-key="ServerId"
+      :item-key="itemKey"
       :initialHeaders="[
         { text: 'ServerId', value: 'ServerId' },
         { text: 'ServerName', value: 'ServerName' }
@@ -106,22 +106,29 @@ export default {
       }
       return false;
     },
+    itemKey() {
+      if (!this.flatten) return "ServerId";
+      return "rowId";
+    },
     resultsComputed() {
       if (!this.flatten) return this.results;
 
+      let rowId = 0;
       const computed = [];
       for (let i = 0; i < this.results.length; i++) {
-        const row = { ...this.results[i] };
+        const row = { ...this.results[i], rowId };
         delete row["Rows"];
 
         if (this.results[i]["Rows"]) {
           const rowsParsed = this.results[i]["Rows"];
           for (let i = 0; i < rowsParsed.length; i++) {
-            const rowInternal = { ...row, ...rowsParsed[i] };
+            const rowInternal = { ...row, ...rowsParsed[i], rowId };
             computed.push(rowInternal);
+            rowId = rowId + 1;
           }
         } else {
           computed.push(row);
+          rowId = rowId + 1;
         }
       }
 
