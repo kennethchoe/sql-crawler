@@ -87,15 +87,13 @@ export default {
   computed: {
     headers() {
       const result = this.initialHeaders;
-      if (this.items.length > 0) {
-        for (let i = 0; i < this.items.length; i++) {
-          Object.keys(this.items[i]).forEach(c => {
-            if (c === "Error") return;
-            if (this.propsToHide.findIndex(x => x === c) >= 0) return;
-            if (result.findIndex(x => x.text === c) >= 0) return;
-            result.push({ text: c, value: c });
-          });
-        }
+      for (let i = 0; i < this.items.length; i++) {
+        Object.keys(this.items[i]).forEach(c => {
+          if (c === "Error") return;
+          if (this.propsToHide.findIndex(x => x === c) >= 0) return;
+          if (result.findIndex(x => x.text === c) >= 0) return;
+          result.push({ text: c, value: c });
+        });
       }
       return result;
     }

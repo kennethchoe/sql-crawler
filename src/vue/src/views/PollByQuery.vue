@@ -18,6 +18,17 @@
           width="100"
           ><v-icon>mdi-stop</v-icon>Cancel</v-btn
         >
+        <v-btn
+          class="ma-2"
+          fab
+          v-if="hasRows"
+          width="36"
+          height="36"
+          @click="flatten = !flatten"
+          :color="flatten ? 'primary' : ''"
+        >
+          <v-icon>mdi-grid</v-icon>
+        </v-btn>
         <v-spacer />
         <div>{{ queryLastRetrievedAt }}</div>
       </v-card-actions>
@@ -50,7 +61,7 @@
       :loading="loading"
       :running="running"
       :running-progress="queryProgress"
-      :items="results"
+      :items="resultsComputed"
       item-key="ServerId"
       :initialHeaders="[
         { text: 'ServerId', value: 'ServerId' },
@@ -79,6 +90,7 @@ export default {
   },
   data: () => ({
     loading: false,
+    flatten: false,
     running: false,
     hasError: false,
     errorMessage: "",
@@ -88,6 +100,33 @@ export default {
   }),
   computed: {
     ...mapState(["results", "queries", "queryProgress"]),
+    hasRows() {
+      for (let i = 0; i < this.results.length; i++) {
+        if (this.results[i]["Rows"]) return true;
+      }
+      return false;
+    },
+    resultsComputed() {
+      if (!this.flatten) return this.results;
+
+      const computed = [];
+      for (let i = 0; i < this.results.length; i++) {
+        const row = { ...this.results[i] };
+        delete row["Rows"];
+
+        if (this.results[i]["Rows"]) {
+          const rowsParsed = this.results[i]["Rows"];
+          for (let i = 0; i < rowsParsed.length; i++) {
+            const rowInternal = { ...row, ...rowsParsed[i] };
+            computed.push(rowInternal);
+          }
+        } else {
+          computed.push(row);
+        }
+      }
+
+      return computed;
+    },
     query() {
       const query = this.queries.filter(x => x.name === this.queryName);
       return query.length ? query[0] : {};
