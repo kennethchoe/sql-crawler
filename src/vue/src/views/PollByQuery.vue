@@ -29,6 +29,15 @@
         >
           <v-icon>mdi-grid</v-icon>
         </v-btn>
+        <json-excel :data="resultsComputed" v-if="!hasRows || flatten">
+          <v-icon
+            @click="
+              {
+              }
+            "
+            >mdi-export-variant</v-icon
+          >
+        </json-excel>
         <v-spacer />
         <div>{{ queryLastRetrievedAt }}</div>
       </v-card-actions>
@@ -74,13 +83,15 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import JsonExcel from "vue-json-excel";
 import axios from "axios";
 import DynamicColumnTable from "../components/DynamicColumnTable.vue";
 import { toLocalString } from "./formatter";
 
 export default {
   components: {
-    DynamicColumnTable
+    DynamicColumnTable,
+    JsonExcel
   },
   props: {
     queryName: {
