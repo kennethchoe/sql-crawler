@@ -23,7 +23,7 @@ Comma-delimited file. `*`: required
 
 1. ServerId`*`: unique identifier of the server.
 2. ServerName: user-friendly name of the server.
-3. Scope: see [Scope](Scope).
+3. Scope: see [Scope](#Scope).
 4. Description
 5. UserData1, UserData2: custom info that you can use in your sql as parameter (`@UserData1`) or Handlebars replacement (`{{UserData1}}`). For other properties that you can use in your sql, see [SqlServerInfoPublic](src/SqlCrawler.Backend/Core/SqlServerInfoPublic.cs).
 6. ServerDriver: `mssql` (default) or `sqlite`. To support more, add class on [Drivers](src/SqlCrawler.Backend/Drivers)
