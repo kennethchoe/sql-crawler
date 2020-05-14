@@ -24,9 +24,9 @@ Comma-delimited file. `*`: required
 1. ServerId`*`: unique identifier of the server.
 2. ServerName: user-friendly name of the server.
 3. Scope: see [Scope](#Scope).
-4. Description
+4. Description.
 5. UserData1, UserData2: custom info that you can use in your sql as parameter (`@UserData1`) or Handlebars replacement (`{{UserData1}}`). For other properties that you can use in your sql, see [SqlServerInfoPublic](src/SqlCrawler.Backend/Core/SqlServerInfoPublic.cs).
-6. ServerDriver: `mssql` (default) or `sqlite`. To support more, add class on [Drivers](src/SqlCrawler.Backend/Drivers)
+6. ServerDriver: `mssql` (default) or `sqlite`. To support more, add class on [Drivers](src/SqlCrawler.Backend/Drivers).
 7. DataSource`*`, UseIntegratedSecurity, SqlUsername, SqlPassword: connection info consumed by ServerDrivers. See [implementation of each driver](src/SqlCrawler.Backend/Drivers) to find more details.
 
 [View Sample](src/SqlCrawler.Web/data/sql-credentials.csv)
@@ -40,7 +40,7 @@ If approval process is needed, you may configure your git repo with permission.
 
 ### Scope
 
-SQL queries may be inside subfolders in the git repository. Then the path of query file becomes the `scope` of the query.
+SQL queries can be placed inside subfolders in the git repository. Then the path of query file becomes the `scope` of the query.
 
 Server List may have optional column `Scope`. ServerId must be still unique across entire list.
 
@@ -65,7 +65,7 @@ ServerId must be still unique across different scopes. Same rule is applied to s
 
 * `docker-run.ps1` : build, create linux docker image and run it as http:5004.
     *  `-port 1234` : run it on http:1234.
-    *  `-gitSqlSource https://git-repo-url` : specify sql source. Default value is `https://github.com/kennethchoe/sql-crawler-sqls.git`, which is sample repo that shows what is possible.
+    *  `-gitSqlSource https://git-repo-url` : specify sql source. Default value is `https://github.com/kennethchoe/sql-crawler-sqls.git`.
     *  `-gitUsername username -gitPassword password`  : specify git repo's credential, if needed.
     *  `-skipRebuild` skips rebuilding docker image.
 
@@ -73,9 +73,9 @@ ServerId must be still unique across different scopes. Same rule is applied to s
 
 Because I forget them after a while...
 
-* `docker ps` : display running containers
-* `docker container prune` : delete all stopped containers
+* `docker ps` : display containers currently running
+* `docker container prune` : clean up all stopped containers
 * `docker logs -f container-identifier` : show console log until you ctrl+C.
-* `docker inspect container-identifier` : show full info about running container, including port, volume mapping, etc.
-* `docker exec -it container-identifier bash` : launch interactive bash on running container. `exit` to disconnect
-* `docker exec container-identifier ls /app` : tap into running container and display the result of `ls /app`
+* `docker inspect container-identifier` : show full info about the container, including port, volume mapping, etc.
+* `docker exec -it container-identifier bash` : launch interactive bash on the container. `exit` to disconnect
+* `docker exec container-identifier ls /app` : tap into the container, display the result of `ls /app` and then disconnect immediately
