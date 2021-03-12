@@ -22,7 +22,7 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        pwsh build.ps1 -target  Build-Docker
+        pwsh build.ps1 --target  Build-Docker
 
     - name: Push Docker Image
       run: |
