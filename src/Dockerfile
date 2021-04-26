@@ -18,9 +18,6 @@ COPY --from=build /app/publish .
 # so that we can see all error messages
 ENV ASPNETCORE_ENVIRONMENT=Development
 
-# https://github.com/libgit2/libgit2sharp/issues/1703
-ENV LD_LIBRARY_PATH=/app/runtimes/debian.9-x64/native/
-
 # https://github.com/dotnet/dotnet-docker/issues/1109, allow connecting to lower TLS version
 RUN sed -i 's/TLSv1.2/TLSv1.0/g' /etc/ssl/openssl.cnf
 

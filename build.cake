@@ -1,17 +1,17 @@
 #addin nuget:?package=Cake.Npm&version=0.17.0
 
 var name = "sql-crawler";
-var solution = "./src/" + name + ".sln";
+var solution = Directory("./src") + File(name + ".sln");
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var version = Argument("PackageVersion", "1.0.0.0");
 
-var buildDir = Directory(".\\src\\SqlCrawler.Web\\bin") + Directory(configuration);
+var buildDir = Directory("./src/SqlCrawler.Web/bin") + Directory(configuration);
 
 Task("SetVersion")
     .Does(() =>
 {
-    var propsFile = "./src/Directory.build.props";
+    var propsFile = Directory("./src") + File("Directory.build.props");
     Information(version);
     XmlPoke(propsFile, "//Version", version);
 });
@@ -31,7 +31,7 @@ Task("Restore-NuGet-Packages")
 Task("Build-Vue")
     .Does(() =>
 {
-    var vuePath = ".\\src\\vue";
+    var vuePath = Directory("src/vue");
     NpmInstall(new NpmInstallSettings {WorkingDirectory = vuePath});
     NpmRunScript(new NpmRunScriptSettings {WorkingDirectory = vuePath, ScriptName = "build"});
 });
@@ -61,7 +61,7 @@ Task("Build-Docker")
     .IsDependentOn("Build-Vue")
     .Does(() =>
 {
-    var srcDirectory = Directory(".\\src");
+    var srcDirectory = Directory("./src");
     var exitCode = StartProcess("docker", "build " + srcDirectory + " -t kennethchoe/" + name);
     if (exitCode != 0)
         throw new Exception("Failed.");
@@ -92,7 +92,7 @@ Task("Publish")
     .Does(() =>
 {
     CleanDirectory("./output");
-    var publishPath = "./output/publish/";
+    var publishPath = Directory("./output/publish/");
     var settings = new DotNetCorePublishSettings
     {
         Configuration = configuration,
@@ -101,10 +101,10 @@ Task("Publish")
 
     DotNetCorePublish(solution, settings);
 
-    var packagePath = "./output/package/";
+    var packagePath = Directory("./output/package");
     CleanDirectory(packagePath);
-    Zip(publishPath, packagePath + "latestPackage.zip", publishPath + "**/*");
-    CopyFile(packagePath + "latestPackage.zip", packagePath + name + " " + version + ".zip");
+    Zip(publishPath, packagePath + File("latestPackage.zip"), publishPath + Directory("**/*"));
+    CopyFile(packagePath + File("latestPackage.zip"), packagePath + File(name + " " + version + ".zip"));
 });
 
 RunTarget(target);
